@@ -104,6 +104,8 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	else:
 		# An improper emoji has been used to react to the message
 		print("Wrong emoji")
+		print(os.environ['emojiIDMember'])
+		print(payload.emoji.id)
 		return
 
 	await member.add_roles(role, reason='Invited to clan')  # Finally add the role to the member
