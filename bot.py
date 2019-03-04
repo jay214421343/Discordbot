@@ -14,6 +14,8 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+	if message.author == client.user:
+		return
 	print(f"Message sent by {message.author}")
 	if message.content.startswith("<@") and len(message.content.split()) == 3:
 		print("Mention found")
@@ -60,10 +62,10 @@ async def on_message(message):
 				epicLikeliness = "are very likely epic"
 			elif int(epiccount) < 50:
 				epicLikeliness = "are epic"
-			await client.send_message(message.channel, f'{mention} has now been called epic {epiccount} {timeform}\n They {epicLikeliness}')
+			await client.channel.send(f'{mention} has now been called epic {epiccount} {timeform}\n They {epicLikeliness}')
 
 	elif message.content.startswith('!sleep'):
 		await asyncio.sleep(5)
-		await client.send_message(message.channel, 'Done sleeping')
+		await client.channel.send('Done sleeping')
 
 client.run('NTQ5NjY1ODU1MTM5NzQxNzE3.D1XNOQ.hyUFWZrsLGHO0lJC3VSddHwkYMU')
