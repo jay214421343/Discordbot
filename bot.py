@@ -2,6 +2,11 @@ import discord
 import asyncio
 import logging
 import os
+import psycopg2
+
+DATABASE_URL = os.environ['DATABASE_URL']
+
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 logging.basicConfig(level=logging.INFO)
 
