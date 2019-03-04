@@ -94,7 +94,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
 
 	# At this point you may vary between different reactions.
-	if payload.emoji.id == os.environ['emojiIDMember']:  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
+	if str(payload.emoji.id) == str(os.environ['emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
 		role = discord.Object(os.environ['roleIDMember']) # You also need the role
 		messageChannel = discord.Object(os.environ['channelID'])
 		messageChannel.send(os.environ['memberJoinMessage'])
