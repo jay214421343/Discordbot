@@ -68,4 +68,4 @@ async def on_message(message):
 		await asyncio.sleep(5)
 		await message.channel.send('Done sleeping')
 
-client.run('NTQ5NjY1ODU1MTM5NzQxNzE3.D1XNOQ.hyUFWZrsLGHO0lJC3VSddHwkYMU')
+client.run(os.environ['discordToken'])
