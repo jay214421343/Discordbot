@@ -50,15 +50,15 @@ async def on_message(message):
 					dba.write(f"{mention}=1" + "\n")
 				epiccount = 1
 				timeform = "time"
-			if epiccount < 5:
+			if (epiccount < 5):
 				epicLikeliness = "are probably not epic"
-			elif epiccount < 10:
+			elif (epiccount < 10):
 				epicLikeliness = "might be epic"
-			elif epiccount < 20:
+			elif (epiccount < 20):
 				epicLikeliness = "are likely epic"
-			elif epiccount < 30:
+			elif (epiccount < 30):
 				epicLikeliness = "are very likely epic"
-			elif epiccount < 50:
+			elif (epiccount < 50):
 				epicLikeliness = "are epic"
 			await client.send_message(message.channel, f'{mention} has now been called epic {epiccount} {timeform}\n They {epicLikeliness}')
 
