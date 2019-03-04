@@ -101,7 +101,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	elif payload.emoji.is_custom_emoji():
 		emojiID = payload.emoji.url
 	else:
-	print("I quit")
+		print("I quit")
 	
 	if str(emojiID) == str(os.environ['emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
 		role = discord.Object(os.environ['roleIDMember']) # You also need the role
