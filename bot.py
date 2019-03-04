@@ -17,6 +17,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
+	
 	botActivity = discord.Activity(name=os.environ['activityName'], type=os.environ['activityType'])
 	await client.change_presence(activity = botActivity)
 
