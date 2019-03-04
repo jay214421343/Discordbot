@@ -62,10 +62,10 @@ async def on_message(message):
 				epicLikeliness = "are very likely epic"
 			elif int(epiccount) < 50:
 				epicLikeliness = "are epic"
-			await client.channel.send(f'{mention} has now been called epic {epiccount} {timeform}\n They {epicLikeliness}')
+			await message.channel.send(f'{mention} has now been called epic {epiccount} {timeform}\n They {epicLikeliness}')
 
 	elif message.content.startswith('!sleep'):
 		await asyncio.sleep(5)
-		await client.channel.send('Done sleeping')
+		await message.channel.send('Done sleeping')
 
 client.run('NTQ5NjY1ODU1MTM5NzQxNzE3.D1XNOQ.hyUFWZrsLGHO0lJC3VSddHwkYMU')
