@@ -74,6 +74,8 @@ async def on_message(message):
 			await message.channel.send(f'{mention} has now been called epic {epiccount} {timeform}\n They {epicLikeliness}')
 
 async def on_raw_reaction_add(payload):  # Will be dispatched every time a user adds a reaction to a message the bot can see
+	role = ""
+	
 	if not payload.guild_id:
 		# In this case, the reaction was added in a DM channel with the bot
 		return
@@ -82,7 +84,8 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	# Either by hardcoding the ID or using a better way like storing the message id.
 	if payload.message_id != os.environ['messageID']:
 		return
-
+		print("Wrong messageID")
+	print("Reaction added to message")
 	guild = bot.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
 	member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
 
@@ -96,6 +99,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		role = discord.Object(os.environ['roleIDFriend'])
 	else:
 		# An improper emoji has been used to react to the message
+		print("Wrong emoji")
 		return
 
 	await member.add_roles(role, reason='Invited to clan')  # Finally add the role to the member
