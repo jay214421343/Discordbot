@@ -92,18 +92,8 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	print("Reaction added to message")
 	guild = client.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
 	member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
-
-	# At this point you may vary between different reactions.
 	
-	if payload.emoji.is_unicode_emoji():
-		emojiID = payload.emoji.id
-	
-	elif payload.emoji.is_custom_emoji():
-		emojiID = payload.emoji.url
-	else:
-		print("I quit")
-	
-	if str(emojiID) == str(os.environ['emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
+	if str(payload.emoji) == str(os.environ['emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
 		role = discord.Object(os.environ['roleIDMember']) # You also need the role
 		messageChannel = discord.Object(os.environ['channelID'])
 		messageChannel.send(os.environ['memberJoinMessage'])
@@ -114,7 +104,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		# An improper emoji has been used to react to the message
 		print("Wrong emoji")
 		print(os.environ['emojiIDMember'])
-		print(payload.emoji.id)
+		print(payload.emoji)
 		return
 
 	await member.add_roles(role, reason='Invited to clan')  # Finally add the role to the member
