@@ -1,6 +1,7 @@
 import discord
 import asyncio
 import logging
+import os
 
 logging.basicConfig(level=logging.INFO)
 
