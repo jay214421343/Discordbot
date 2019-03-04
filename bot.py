@@ -70,8 +70,31 @@ async def on_message(message):
 				epicLikeliness = "are epic"
 			await message.channel.send(f'{mention} has now been called epic {epiccount} {timeform}\n They {epicLikeliness}')
 
-	elif message.content.startswith('!sleep'):
-		await asyncio.sleep(5)
-		await message.channel.send('Done sleeping')
+async def on_raw_reaction_add(payload):  # Will be dispatched every time a user adds a reaction to a message the bot can see
+	if not payload.guild_id:
+		# In this case, the reaction was added in a DM channel with the bot
+		return
+		
+	# At this point, you'd have to implement something like a check to ensure the reaction was added to the proper message
+	# Either by hardcoding the ID or using a better way like storing the message id.
+	if payload.message_id != os.environ['messageID']:
+		return
 
+	guild = bot.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
+	member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
+
+	# At this point you may vary between different reactions.
+	if payload.emoji.id == os.environ['emojiIDMember']:  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
+		role = discord.Object(os.environ['roleIDMember']) # You also need the role
+		messageChannel = discord.Object(os.environ['channelID'])
+		messageChannel.send(os.environ['memberJoinMessage'])
+	# Gotta do same thing for friends
+	elif payload.emoji.id == os.environ['emojiIDFriend']:
+		role = discord.Object(os.environ['roleIDFriend'])
+	else:
+		# An improper emoji has been used to react to the message
+		return
+
+	await member.add_roles(role, reason='Invited to clan')  # Finally add the role to the member
+	
 client.run(os.environ['discordToken'])
