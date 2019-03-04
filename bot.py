@@ -18,7 +18,7 @@ async def on_ready():
 	print(client.user.id)
 	print('------')
 	
-	botActivity = discord.Activity(name=os.environ['activityName'],type=discord.Watching)
+	botActivity = discord.Activity(name=os.environ['activityName'],type=discord.ActivityType.watching)
 	await client.change_presence(activity = botActivity)
 
 @client.event
