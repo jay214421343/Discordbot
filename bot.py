@@ -90,7 +90,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		print("Wrong messageID")
 		return
 	print("Reaction added to message")
-	guild = bot.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
+	guild = client.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
 	member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
 
 	# At this point you may vary between different reactions.
