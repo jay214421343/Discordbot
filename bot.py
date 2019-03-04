@@ -13,12 +13,12 @@ logging.basicConfig(level=logging.INFO)
 client = discord.Client()
 @client.event
 async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+	print('Logged in as')
+	print(client.user.name)
+	print(client.user.id)
+	print('------')
 	
-	botActivity = discord.Activity(name=os.environ['activityName'], type=os.environ['activityType'])
+	botActivity = discord.Activity(name=os.environ['activityName'],type=os.environ['activityType'])
 	await client.change_presence(activity = botActivity)
 
 @client.event
