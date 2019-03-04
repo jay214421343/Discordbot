@@ -75,9 +75,10 @@ async def on_message(message):
 
 async def on_raw_reaction_add(payload):  # Will be dispatched every time a user adds a reaction to a message the bot can see
 	role = ""
-	
+	print("Reaction added")
 	if not payload.guild_id:
 		# In this case, the reaction was added in a DM channel with the bot
+		print("Dafuq")
 		return
 		
 	# At this point, you'd have to implement something like a check to ensure the reaction was added to the proper message
