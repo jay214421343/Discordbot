@@ -98,7 +98,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	guild = client.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
 	member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
 	
-	if payload.emoji == int(os.environ['emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
+	if str(payload.emoji) == str(os.environ['emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
 		print(os.environ['emojiIDMember'])
 		print(payload.emoji)
 		role = discord.Object(id=str(os.environ['roleIDMember'])) # You also need the role
