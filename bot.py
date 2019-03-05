@@ -110,6 +110,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	else:
 		# An improper emoji has been used to react to the message
 		print("Wrong emoji")
+		print(os.environ['emojiIDFriend'])
 		print(os.environ['emojiIDMember'])
 		print(payload.emoji)
 		return
