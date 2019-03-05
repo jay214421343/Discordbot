@@ -117,7 +117,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		return
 	
 	reactionMessage = client.get_channel(payload.channel_id).get_message(payload.message_id)
-	await client.remove_reaction(payload.emoji, member)
+	await reactionMessage.remove_reaction(payload.emoji, member)
 	await member.add_roles(role, reason='Invited to clan')  # Finally add the role to the member
 	print("Added role")
 client.run(os.environ['discordToken'])
