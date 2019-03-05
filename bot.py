@@ -102,7 +102,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		print("Emoji matches")
 		role = discord.Object(int(os.environ['roleIDMember'])) # You also need the role
 		messageChannel = client.get_channel(int(os.environ['channelID']))
-		await messageChannel.send(os.environ['memberJoinMessage'])
+		await messageChannel.send(role.mention())
 		print("Sent message")
 	# Gotta do same thing for friends
 	elif str(payload.emoji) == str(os.environ['emojiIDFriend']):
