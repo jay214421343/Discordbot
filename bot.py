@@ -114,6 +114,6 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		print(payload.emoji)
 		return
 
-	await member.add_roles(role, reason='Invited to clan')  # Finally add the role to the member
+	await member.add_roles(guild, role, reason='Invited to clan')  # Finally add the role to the member
 	
 client.run(os.environ['discordToken'])
