@@ -95,18 +95,19 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		print("Wrong messageID")
 		return
 	print("Reaction added to message")
+	
 	guild = client.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
 	member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
 	
 	if str(payload.emoji) == str(os.environ['emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
 		print("Emoji matches")
-		role = discord.Object(int(os.environ['roleIDMember'])) # You also need the role
+		role = guild.get_role(int(os.environ['roleIDMember'])) # You also need the role
 		messageChannel = client.get_channel(int(os.environ['channelID']))
 		await messageChannel.send(role.mention())
 		print("Sent message")
 	# Gotta do same thing for friends
 	elif str(payload.emoji) == str(os.environ['emojiIDFriend']):
-		role = discord.Object(os.environ['roleIDFriend'])
+		role = guild.get_role(os.environ['roleIDFriend'])
 	else:
 		# An improper emoji has been used to react to the message
 		print("Wrong emoji")
@@ -116,7 +117,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		return
 	
 	reactionMessage = client.get_channel(payload.channel_id).get_message(payload.message_id)
-	await reactionMessage.remove_reaction(payload.emoji, member)
+	await client.remove_reaction(payload.emoji, member)
 	await member.add_roles(role, reason='Invited to clan')  # Finally add the role to the member
 	print("Added role")
 client.run(os.environ['discordToken'])
