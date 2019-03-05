@@ -108,7 +108,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		print("Sent message")
 	# Gotta do same thing for friends
 	elif str(payload.emoji) == str(os.environ['emojiIDFriend']):
-		role = guild.get_role(os.environ['roleIDFriend'])
+		role = guild.get_role(int(os.environ['roleIDFriend']))
 	else:
 		# An improper emoji has been used to react to the message
 		print("Wrong emoji")
@@ -120,7 +120,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	#reactionChannel = client.get_channel(payload.channel_id)
 	#reactionMessage = await reactionChannel.get_message(payload.message_id)
 	#await reactionMessage.remove_reaction(payload.emoji, member)
-	await payload.emoji.remove(member)
+	await payload.reaction.remove(member)
 	if badBool != True:
 		await member.add_roles(role, reason='Invited to clan')  # Finally add the role to the member
 		print("Added role")
