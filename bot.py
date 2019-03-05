@@ -21,6 +21,9 @@ async def on_ready():
 	botActivity = discord.Activity(name=os.environ['activityName'],type=discord.ActivityType.watching)
 	await client.change_presence(activity = botActivity)
 
+	
+#I DON'T KNOW
+
 @client.event
 async def on_message(message):
 	if message.author == client.user:
@@ -72,7 +75,9 @@ async def on_message(message):
 			elif int(epiccount) < 50:
 				epicLikeliness = "are epic"
 			await message.channel.send(f'{mention} has now been called epic {epiccount} {timeform}\n They {epicLikeliness}')
-			
+
+#REACTION ROLES
+
 @client.event
 async def on_raw_reaction_add(payload):  # Will be dispatched every time a user adds a reaction to a message the bot can see
 	role = ""
