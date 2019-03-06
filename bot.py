@@ -80,7 +80,9 @@ async def on_message(message):
 @client.event
 async def on_raw_reaction_add(payload):  # Will be dispatched every time a user adds a reaction to a message the bot can see
 	role = ""
-	badBool = False
+	badBool = True
+	inviterBool = False
+	
 	print("Reaction added")
 	if not payload.guild_id:
 		# In this case, the reaction was added in a DM channel with the bot
@@ -105,7 +107,10 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 			#Add SQL injection protection
 			cur.execute("SELECT * FROM mentionMessageTable WHERE id=" + str(payload.message_id))
 			mentionMessage = cur.fetchone()
-			if mentionMessage[0] == payload.message_id and str(payload.emoji) == str(os.environ['emojiIDInviter']):
+			for memberRole in member.roles:
+				if memberRole.id == int(os.environ['inviterRoleID']):
+					inviterBool = False
+			if mentionMessage[0] == payload.message_id and str(payload.emoji) == str(os.environ['emojiIDInviter']) and inviterBool:
 				#Add SQL injection protection
 				cur.execute("DELETE FROM mentionMessageTable WHERE id=" + str(payload.message_id))
 				welcomeChannel = client.get_channel(int(os.environ['welcomeChannelID']))
