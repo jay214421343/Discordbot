@@ -96,7 +96,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	if payload.message_id != int(os.environ['messageID']):
 		print(os.environ['messageID'])
 		print(payload.message_id)
-		print("Wrong messageID")
+		print("Not role reaction")
 		
 		conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 		
@@ -109,6 +109,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 				#Add SQL injection protection
 				cur.execute("DELETE FROM mentionMessageTable WHERE id=" + str(payload.message_id))
 				welcomeChannel = client.get_channel(int(os.environ['welcomeChannelID']))
+				print("Message ID matches inviter ping message id, sending welcome message...")
 				await welcomeChannel.send("Welcome " + "<@" + mentionMessage[1] + ">" + "!" + os.environ['welcomeMessage'])
 			cur.close()
 		except (Exception, psycopg2.DatabaseError) as error:
