@@ -92,7 +92,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	
 	guild = client.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
 	member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
-	o
+	
 	if payload.message_id != int(os.environ['messageID']):
 		print(os.environ['messageID'])
 		print(payload.message_id)
