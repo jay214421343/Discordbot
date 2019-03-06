@@ -104,7 +104,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		print("Emoji matches")
 		role = guild.get_role(int(os.environ['roleIDMember'])) # You also need the role
 		messageChannel = client.get_channel(int(os.environ['channelID']))
-		mentionMessage = await messageChannel.send(os.environ['memberJoinMessage'])
+		mentionMessage = await messageChannel.send(os.environ['memberJoinMessage'] + "please invite" + member.nick)
 		print("Sent message")
 	# Gotta do same thing for friends
 	elif str(payload.emoji) == str(os.environ['emojiIDFriend']):
