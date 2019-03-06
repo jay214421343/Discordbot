@@ -110,7 +110,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 				cur.execute("DELETE FROM mentionMessageTable WHERE id=" + payload.message_id)
 				welcomeChannel = client.get_channel(int(os.environ['welcomeChannelID']))
 				await welcomeChannel.send("Welcome " + "<@" + mentionMessage[1] + ">" + "!" + os.environ['welcomeMessage'])
-		cur.close()
+			cur.close()
 		except (Exception, psycopg2.DatabaseError) as error:
 			print(error)
 		finally:
