@@ -109,7 +109,8 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 			mentionMessage = cur.fetchone()
 			for memberRole in member.roles:
 				if memberRole.id == int(os.environ['inviterRoleID']):
-					inviterBool = False
+					inviterBool = True
+					break
 			if mentionMessage[0] == payload.message_id and str(payload.emoji) == str(os.environ['emojiIDInviter']) and inviterBool:
 				#Add SQL injection protection
 				cur.execute("DELETE FROM mentionMessageTable WHERE id=" + str(payload.message_id))
