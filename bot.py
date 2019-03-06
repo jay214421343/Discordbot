@@ -125,18 +125,18 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		role = guild.get_role(int(os.environ['roleIDMember'])) # You also need the role
 		messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
 		mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " please invite " + member.nick)
-	try:
-		conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-		cur = conn.cursor()
-		#Add SQL injection protection
-		cur.execute("INSERT INTO mentionMessageTable VALUES (" + mentionMessageDab.id + ", " + payload.user_id + ")")
-		conn.commit()
-		cur.close()
-	except (Exception, psycopg2.DatabaseError) as error:
-		print(error)
-	finally:
-		if conn is not None:
-			conn.close()
+		try:
+			conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+			cur = conn.cursor()
+			#Add SQL injection protection
+			cur.execute("INSERT INTO mentionMessageTable VALUES (" + mentionMessageDab.id + ", " + payload.user_id + ")")
+			conn.commit()
+			cur.close()
+		except (Exception, psycopg2.DatabaseError) as error:
+			print(error)
+		finally:
+			if conn is not None:
+				conn.close()
  
 		print("Sent message")
 	# Gotta do same thing for friends
