@@ -103,11 +103,11 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		try:
 			cur = conn.cursor()
 			#Add SQL injection protection
-			cur.execute("SELECT * FROM mentionMessageTable WHERE id=" + payload.message_id)
+			cur.execute("SELECT * FROM mentionMessageTable WHERE id=" + str(payload.message_id))
 			mentionMessage = cur.fetchone()
 			if mentionMessage[0] == payload.message_id and str(payload.emoji) == str(os.environ['emojiIDInviter']):
 				#Add SQL injection protection
-				cur.execute("DELETE FROM mentionMessageTable WHERE id=" + payload.message_id)
+				cur.execute("DELETE FROM mentionMessageTable WHERE id=" + str(payload.message_id))
 				welcomeChannel = client.get_channel(int(os.environ['welcomeChannelID']))
 				await welcomeChannel.send("Welcome " + "<@" + mentionMessage[1] + ">" + "!" + os.environ['welcomeMessage'])
 			cur.close()
@@ -129,7 +129,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 			conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 			cur = conn.cursor()
 			#Add SQL injection protection
-			cur.execute("INSERT INTO mentionMessageTable VALUES (" + mentionMessageDab.id + ", " + payload.user_id + ")")
+			cur.execute("INSERT INTO mentionMessageTable VALUES (" + str(mentionMessageDab.id) + ", " + str(payload.user_id) + ")")
 			conn.commit()
 			cur.close()
 		except (Exception, psycopg2.DatabaseError) as error:
