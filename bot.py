@@ -112,7 +112,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 				await welcomeChannel.send("Welcome " + "<@" + mentionMessage[1] + ">" + "!" + os.environ['welcomeMessage'])
 			cur.close()
 		except (Exception, psycopg2.DatabaseError) as error:
-			print(error)
+			print("PostreSQL error: "error)
 		finally:
 			if conn is not None:
 				conn.close()
@@ -133,7 +133,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 			conn.commit()
 			cur.close()
 		except (Exception, psycopg2.DatabaseError) as error:
-			print(error)
+			print("PostreSQL error: "error)
 		finally:
 			if conn is not None:
 				conn.close()
