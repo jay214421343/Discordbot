@@ -88,9 +88,6 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		# In this case, the reaction was added in a DM channel with the bot
 		print("Dafuq")
 		return
-		
-	# At this point, you'd have to implement something like a check to ensure the reaction was added to the proper message
-	# Either by hardcoding the ID or using a better way like storing the message id.
 	
 	guild = client.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
 	member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
