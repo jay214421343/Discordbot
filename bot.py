@@ -101,16 +101,14 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		
 		try:
 			cur = conn.cursor()
-			#Add SQL injection protection
-			cur.execute("SELECT * FROM mentionMessageTable WHERE id=" + str(payload.message_id))
+			cur.execute("SELECT * FROM mentionMessageTable WHERE id=%s", (str(payload.message_id)))
 			mentionMessage = cur.fetchone()
 			for memberRole in member.roles:
 				if memberRole.id == int(os.environ['inviterRoleID']):
 					inviterBool = True
 					break
 			if mentionMessage[0] == payload.message_id and str(payload.emoji) == str(os.environ['emojiIDInviter']) and inviterBool:
-				#Add SQL injection protection
-				cur.execute("DELETE FROM mentionMessageTable WHERE id=" + str(payload.message_id))
+				cur.execute("DELETE FROM mentionMessageTable WHERE id=%s;", (str(payload.message_id)))
 				conn.commit()
 				welcomeChannel = client.get_channel(int(os.environ['welcomeChannelID']))
 				print("Message ID matches inviter ping message id, sending welcome message...")
@@ -133,8 +131,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		try:
 			conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 			cur = conn.cursor()
-			#Add SQL injection protection
-			cur.execute("INSERT INTO mentionMessageTable VALUES (" + str(mentionMessageDab.id) + ", " + str(payload.user_id) + ")")
+			cur.execute("INSERT INTO mentionMessageTable VALUES (%s, %s);", (str(mentionMessageDab.id), str(payload.user_id)))
 			conn.commit()
 			cur.close()
 		except (Exception, psycopg2.DatabaseError) as error:
