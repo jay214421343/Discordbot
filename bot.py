@@ -80,7 +80,7 @@ async def on_message(message):
 @client.event
 async def on_raw_reaction_add(payload):  # Will be dispatched every time a user adds a reaction to a message the bot can see
 	role = ""
-	badBool = True
+	badBool = False
 	inviterBool = False
 	
 	print("Reaction added")
