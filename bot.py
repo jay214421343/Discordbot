@@ -108,6 +108,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 			if mentionMessage[0] == payload.message_id and str(payload.emoji) == str(os.environ['emojiIDInviter']):
 				#Add SQL injection protection
 				cur.execute("DELETE FROM mentionMessageTable WHERE id=" + str(payload.message_id))
+				conn.commit()
 				welcomeChannel = client.get_channel(int(os.environ['welcomeChannelID']))
 				print("Message ID matches inviter ping message id, sending welcome message...")
 				await welcomeChannel.send("Welcome " + "<@" + mentionMessage[1] + ">" + "!" + os.environ['welcomeMessage'])
