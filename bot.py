@@ -101,14 +101,14 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		
 		try:
 			cur = conn.cursor()
-			cur.execute("SELECT * FROM mentionMessageTable WHERE id=%s", (str(payload.message_id)))
+			cur.execute("SELECT * FROM mentionMessageTable WHERE id=%s", (str(payload.message_id),))
 			mentionMessage = cur.fetchone()
 			for memberRole in member.roles:
 				if memberRole.id == int(os.environ['inviterRoleID']):
 					inviterBool = True
 					break
 			if mentionMessage[0] == payload.message_id and str(payload.emoji) == str(os.environ['emojiIDInviter']) and inviterBool:
-				cur.execute("DELETE FROM mentionMessageTable WHERE id=%s;", (str(payload.message_id)))
+				cur.execute("DELETE FROM mentionMessageTable WHERE id=%s;", (str(payload.message_id),))
 				conn.commit()
 				welcomeChannel = client.get_channel(int(os.environ['welcomeChannelID']))
 				print("Message ID matches inviter ping message id, sending welcome message...")
