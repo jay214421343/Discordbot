@@ -75,6 +75,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		print("Emoji matches")
 		role = guild.get_role(int(os.environ['roleIDMember'])) # You also need the role
 		messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
+		print(member.nick)
 		mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " please invite " + member.nick)
 		try:
 			conn = psycopg2.connect(DATABASE_URL, sslmode='require')
