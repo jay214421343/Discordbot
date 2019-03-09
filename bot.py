@@ -70,7 +70,7 @@ To gain access to the clan dojo you'll have to build a Clan Key, you will be gra
 
 Feel free to ask us any questions you might have about the game.
 
-Also please take a quick read through """ + client.get_channel('389879532636733461').mention + """ and """ client.get_channel('421809355676188701').mention """
+Also please take a quick read through """ + client.get_channel('389879532636733461').mention + """ and """ + client.get_channel('421809355676188701').mention + """
 
 Have fun!""")
 			cur.close()
