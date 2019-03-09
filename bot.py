@@ -64,13 +64,11 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 
 You're now invited to the in-game clan!
 
-First of all please read the rules in #server-info.
-
 To gain access to the clan dojo you'll have to build a Clan Key, you will be granted the blueprint for this immediately upon joining the clan in-game.
 
 Feel free to ask us any questions you might have about the game.
 
-Also please take a quick read through """ + client.get_channel(389879532636733461).mention + """
+Also please take a quick read through """ + client.get_channel(389879532636733461).mention + """ and """ + client.get_channel(421809355676188701).mention + """
 
 Have fun!""")
 			cur.close()
@@ -90,7 +88,7 @@ Have fun!""")
 		if member.nick is not None:
 			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ['recruiterPingMessage'] + " please invite " + member.nick)
 		else:
-			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ['recruiterPingMessage'] + " please invite " + member.name + "to the clan.")
+			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ['recruiterPingMessage'] + " please invite " + member.name + " to the clan.")
 		try:
 			conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 			cur = conn.cursor()
