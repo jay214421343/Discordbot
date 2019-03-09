@@ -19,7 +19,7 @@ async def on_ready():
 	mentionMessages = []
 	botActivity = discord.Activity(name=os.environ['activityName'],type=discord.ActivityType.watching)
 	await client.change_presence(activity = botActivity)
-	await bot.user.edit(username="Bot Mcbotface")
+	await client.user.edit(username="Bot Mcbotface")
 
 	
 # I DON'T KNOW
