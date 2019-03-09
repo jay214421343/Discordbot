@@ -19,7 +19,7 @@ async def on_ready():
 	mentionMessages = []
 	botActivity = discord.Activity(name=os.environ['activityName'],type=discord.ActivityType.watching)
 	await client.change_presence(activity = botActivity)
-	await client.user.edit(username="Cephalon Lobby")
+	#await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
 
 	
 
@@ -76,9 +76,9 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		role = guild.get_role(int(os.environ['roleIDMember'])) # You also need the role
 		messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
 		if member.nick is not None:
-			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + "and" + os.environ['recruiterPingMessage'] + " please invite " + member.nick)
+			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ['recruiterPingMessage'] + " please invite " + member.nick)
 		else:
-			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + "and" + os.environ['recruiterPingMessage'] + " please invite " + member.name)
+			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ['recruiterPingMessage'] + " please invite " + member.name)
 		try:
 			conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 			cur = conn.cursor()
