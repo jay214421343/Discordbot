@@ -52,7 +52,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 			cur.execute("SELECT * FROM mentionMessageTable WHERE id=%s", (str(payload.message_id),))
 			mentionMessage = cur.fetchone()
 			for memberRole in member.roles:
-				if memberRole.id == int(os.environ['inviterRoleID']):
+				if memberRole.id == int(os.environ['inviterRoleID'] or memberRole.id == int(os.environ['recruiterRoleID']):
 					inviterBool = True
 					break
 			if mentionMessage[0] == payload.message_id and str(payload.emoji) == str(os.environ['emojiIDInviter']) and inviterBool:
