@@ -19,7 +19,7 @@ async def on_ready():
 	mentionMessages = []
 	botActivity = discord.Activity(name=os.environ['activityName'],type=discord.ActivityType.watching)
 	await client.change_presence(activity = botActivity)
-	await client.user.edit(username="Cephalon Lobby") Can be used to change the bot username.
+	await client.user.edit(username="Cephalon Lobby")
 
 	
 
@@ -76,9 +76,9 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		role = guild.get_role(int(os.environ['roleIDMember'])) # You also need the role
 		messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
 		if member.nick is not None:
-			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " please invite " + member.nick)
+			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + "and" + os.environ['recruiterPingMessage'] + " please invite " + member.nick)
 		else:
-			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " please invite " + member.name)
+			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + "and" + os.environ['recruiterPingMessage'] + " please invite " + member.name)
 		try:
 			conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 			cur = conn.cursor()
@@ -108,5 +108,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 	await reactionMessage.remove_reaction(payload.emoji, member)
 	if badBool == False:
 		await member.add_roles(role, reason='Invited to clan')  # Finally add the role to the member
+		await member.add_roles(guild.get_role(int(os.environ['roleIDSeparator'])), reason='Invited to clan')  # Finally add the role to the member
+		await member.remove_roles(guild.get_role(int(os.environ['roleIDPending'])))
 		print("Added role")
 client.run(os.environ['discordToken'])
