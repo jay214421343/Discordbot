@@ -38,7 +38,6 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		return
 	
 	guild = client.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
-	print(payload.guild_id)
 	member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
 	
 	if payload.message_id != int(os.environ['messageID']):
@@ -76,8 +75,10 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 		print("Emoji matches")
 		role = guild.get_role(int(os.environ['roleIDMember'])) # You also need the role
 		messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
-		print(member.nick)
-		mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " please invite " + member.nick)
+		if member.nick is not None:
+			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " please invite " + member.nick)
+		else:
+			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " please invite " + member.name)
 		try:
 			conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 			cur = conn.cursor()
