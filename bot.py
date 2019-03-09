@@ -62,7 +62,7 @@ async def on_raw_reaction_add(payload):  # Will be dispatched every time a user 
 				print("Message ID matches inviter ping message id, sending welcome message...")
 				await welcomeChannel.send("Welcome " + "<@" + mentionMessage[1] + ">" + "!" + """
 
-You're now invited to the in-game clan!
+You're now invited to the in-game clan, please check your inbox in-game!
 
 To gain access to the clan dojo you'll have to build a Clan Key, you will be granted the blueprint for this immediately upon joining the clan in-game.
 
