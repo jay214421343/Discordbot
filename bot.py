@@ -86,7 +86,7 @@ Have fun!""")
 		role = guild.get_role(int(os.environ['roleIDMember'])) # You also need the role
 		messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
 		if member.nick is not None:
-			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ['recruiterPingMessage'] + " please invite " + member.nick)
+			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ['recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
 		else:
 			mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ['recruiterPingMessage'] + " please invite " + member.name + " to the clan.")
 		try:
