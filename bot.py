@@ -44,6 +44,7 @@ async def nicknameemojis(ctx):
         for emojiRole in member.roles:
 
             if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
+                print("dabonthemhaters")
                 await member.edit(nick=os.environ['emojiIDStaff'] + member.nick)
 
                 emojiRoleFound = True
