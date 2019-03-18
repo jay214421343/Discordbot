@@ -2,6 +2,7 @@ import discord
 import logging
 import os
 import psycopg2
+import time
 from discord.ext import commands
 
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -24,6 +25,10 @@ async def on_ready():
     botActivity = discord.Activity(name=os.environ['activityName'], type=discord.ActivityType.watching)
     await client.change_presence(activity=botActivity)
 
+
+@bot.command()
+async def foo(ctx, arg):
+    await ctx.send(arg)
 
 @bot.command()
 async def nicknameemojis(ctx):
@@ -127,12 +132,39 @@ Have fun!""")
         print("Emoji matches")
         role = guild.get_role(int(os.environ['roleIDMember']))  # You also need the role
         messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
+
         if member.nick is not None:
+
+            if "*" in member.nick:
+                await client.change_nickname(payload.emoji + member, member.name)
+
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
+
                 'recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
+
+
         else:
-            mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
-                'recruiterPingMessage'] + " please invite " + member.name + " to the clan.")
+
+            errorMessage = await                 messageChannel.send(member.mention + """ Please read through this whole message before doing anything. 
+
+
+        If your Warframe ign and your discord username are different please change your discord nickname on this server to """ + member.name + """
+
+
+        If your discord username is the same as your Warframe ign then please change your nickname to just "*"
+
+
+        To change your discord nickname on desktop you have to right click the mention (the first word in this message) and press "change nickname". On mobile this is done by going to the channel selection menu by clicking on the three lines in the top left, pressing "team hydra" and then pressing change nickname.
+
+
+        If you need help with anything concerning this process feel free to contact any of the officers or leaders on this server and we’ll help you out.
+
+        """)
+            time.sleep(10)
+
+            await errorMessage.delete()
+
+            return
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
             cur = conn.cursor()
