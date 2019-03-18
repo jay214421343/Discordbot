@@ -44,7 +44,7 @@ async def nicknameemojis(ctx):
         for emojiRole in member.roles:
 
             if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
-                await client.change_nickname(os.environ['emojiIDStaff'] + member, member.nick)
+                await client.change_nickname(member, os.environ['emojiIDStaff'] + member.nick)
 
                 emojiRoleFound = True
 
@@ -53,7 +53,7 @@ async def nicknameemojis(ctx):
             for emojiRole in member.roles:
 
                 if emojiRole.id == int(os.environ['roleIDMember']):
-                    await client.change_nickname(os.environ['emojiIDMember'] + member, member.nick)
+                    await client.change_nickname(member, os.environ['emojiIDMember'] + member.nick)
 
                     emojiRoleFound = True
 
@@ -62,7 +62,7 @@ async def nicknameemojis(ctx):
             for emojiRole in member.roles:
 
                 if emojiRole.id == int(os.environ['roleIDFriend']):
-                    await client.change_nickname(os.environ['emojiIDFriend'] + member, member.nick)
+                    await client.change_nickname(member, os.environ['emojiIDFriend'] + member.nick)
 
                     emojiRoleFound = True
 
