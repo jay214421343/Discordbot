@@ -141,7 +141,7 @@ Have fun!""")
         if member.nick is not None:
 
             if "*" in member.nick:
-                await client.change_nickname(payload.emoji + member, member.name)
+                await member.edit(nick=payload.emoji + member.name)
 
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
 
