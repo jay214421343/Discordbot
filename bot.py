@@ -26,7 +26,7 @@ async def on_ready():
     await client.change_presence(activity=botActivity)
 
 
-@bot.command()
+@commands.command()
 async def ping(ctx):
     '''
     This text will be shown in the help command
@@ -38,7 +38,7 @@ async def ping(ctx):
     await ctx.send(latency)
 
 
-@bot.command()
+@commands.command()
 async def nicknameemojis(ctx):
     print("Very dab")
     for member in client.get_guild(337625520860692482).members:
