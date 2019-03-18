@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 client = discord.Client()
 
-bot = commands.Bot(command_prefix='?')
+bot = commands.Bot(command_prefix="?")
 
 
 @client.event
@@ -27,8 +27,16 @@ async def on_ready():
 
 
 @bot.command()
-async def foo(ctx, arg):
-    await ctx.send(arg)
+async def ping(ctx):
+    '''
+    This text will be shown in the help command
+    '''
+
+    # Get the latency of the bot
+    latency = bot.latency  # Included in the Discord.py library
+    # Send it to the user
+    await ctx.send(latency)
+
 
 @bot.command()
 async def nicknameemojis(ctx):
