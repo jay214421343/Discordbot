@@ -9,10 +9,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 
 logging.basicConfig(level=logging.INFO)
 
-client = discord.Client()
-
-bot = commands.Bot(command_prefix="?")
-
+client = commands.Bot(command_prefix="?")
 
 @client.event
 async def on_ready():
@@ -26,19 +23,19 @@ async def on_ready():
     await client.change_presence(activity=botActivity)
 
 
-@commands.command()
+@client.command()
 async def ping(ctx):
     '''
     This text will be shown in the help command
     '''
 
     # Get the latency of the bot
-    latency = bot.latency  # Included in the Discord.py library
+    latency = client.latency  # Included in the Discord.py library
     # Send it to the user
     await ctx.send(latency)
 
 
-@commands.command()
+@client.command()
 async def nicknameemojis(ctx):
     print("Very dab")
     for member in client.get_guild(337625520860692482).members:
