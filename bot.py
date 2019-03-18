@@ -2,12 +2,15 @@ import discord
 import logging
 import os
 import psycopg2
+from discord.ext import commands
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
 logging.basicConfig(level=logging.INFO)
 
 client = discord.Client()
+
+bot = commands.Bot(command_prefix='?')
 
 
 @client.event
@@ -20,6 +23,37 @@ async def on_ready():
     mentionMessages = []
     botActivity = discord.Activity(name=os.environ['activityName'], type=discord.ActivityType.watching)
     await client.change_presence(activity=botActivity)
+
+
+@bot.command()
+async def nicknameemojis():
+    for member in client.get_guild(337625520860692482).members:
+        emojiRoleFound = False
+
+        for emojiRole in member.roles:
+
+            if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
+                await client.change_nickname(os.environ['emojiIDStaff'] + member, member.nick)
+
+                emojiRoleFound = True
+
+        if not emojiRoleFound:
+
+            for emojiRole in member.roles:
+
+                if emojiRole.id == int(os.environ['roleIDMember']):
+                    await client.change_nickname(os.environ['emojiIDMember'] + member, member.nick)
+
+                    emojiRoleFound = True
+
+        if not emojiRoleFound:
+
+            for emojiRole in member.roles:
+
+                if emojiRole.id == int(os.environ['roleIDFriend']):
+                    await client.change_nickname(os.environ['emojiIDFriend'] + member, member.nick)
+
+                    emojiRoleFound = True
 
 
 # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
