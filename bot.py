@@ -27,6 +27,7 @@ async def on_ready():
 
 @bot.command()
 async def nicknameemojis(ctx):
+    print("Very dab")
     for member in client.get_guild(337625520860692482).members:
         emojiRoleFound = False
 
