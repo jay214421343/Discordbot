@@ -36,7 +36,7 @@ async def ping(ctx):
 
 async def is_staff(ctx):
     for permissionRole in ctx.author.roles:
-        if permissionRole.id == os.environ['roleIDOfficer']) or permissionRole.id == int(os.environ['roleIDLeader']):
+        if permissionRole.id == int(os.environ['roleIDOfficer']) or permissionRole.id == int(os.environ['roleIDLeader']):
             return True
 
 @client.command()
