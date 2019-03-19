@@ -178,11 +178,11 @@ Have fun!""")
 
         else:
 
-            errorMessage = await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention + """ 
-Please read through this whole message before doing anything. 
+            errorMessage = await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention +
+"""Please read through this whole message before doing anything. 
 
 
-If your Warframe ign and your discord username are different please change your discord nickname on this server to """ + member.name + """
+If your Warframe ign and your discord username are different please change your discord nickname on this server to your warframe ign
 
 If your discord username is the same as your Warframe ign please change your discord nickname on this server to just "*"
 
