@@ -1,9 +1,8 @@
-import discord
 import logging
 import os
+
+import discord
 import psycopg2
-import time
-import threading
 from discord.ext import commands
 
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -177,7 +176,7 @@ Have fun!""")
 
         else:
 
-            errorMessage = await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention +
+            await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention +
 """ please read through this whole message before doing anything. 
 
 
@@ -188,19 +187,12 @@ If your discord username is the same as your Warframe ign please change your dis
 
 To change your discord nickname on desktop you have to right click the mention (the first word in this message) and click on "Change Nickname". On mobile this is done by going to the channel selection menu by clicking on the three lines in the top left, pressing "Team Hydra" and then pressing "Change Nickname".
 
-If you need help with any steps in this process feel free to contact any of the officers or leaders on the server and we’ll help you out.
-
-        """)
-            async def deleteErrorMessage():
-                await errorMessage.delete
-
+If you need help with any steps in this process feel free to contact any of the officers or leaders on the server and we’ll help you out.""")
             reactionChannel = client.get_channel(payload.channel_id)
             reactionMessage = await reactionChannel.get_message(payload.message_id)
             await reactionMessage.remove_reaction(payload.emoji, member)
-            t = threading.Timer(10.0, deleteErrorMessage)
-            t.start()
-
             return
+
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
             cur = conn.cursor()
