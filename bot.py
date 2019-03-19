@@ -52,6 +52,7 @@ def nickOrName(dabbermember):
 @client.command()
 @commands.check(is_staff)
 async def nicknameemojis(ctx):
+    statusMessage = await ctx.channel.send("Changing nickname emojis...")
     for dabbymember in ctx.guild.members:
         emojiRoleFound = False
         if dabbymember is not ctx.guild.owner:
@@ -91,7 +92,8 @@ async def nicknameemojis(ctx):
                         else:
                             emojiRoleFound = True
                             await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'], os.environ['emojiIDFriend'] + " "))
-
+        statusMessage.delete()
+        await ctx.channel.send("Nickname emojis have been changed.")
 
 # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
 
