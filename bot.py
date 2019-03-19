@@ -34,7 +34,7 @@ async def ping(ctx):
     # Send it to the user
     await ctx.send(latency)
 
-async def is_staff(ctx):
+def is_staff(ctx):
     for permissionRole in ctx.author.roles:
         if permissionRole.id == int(os.environ['roleIDOfficer']) or permissionRole.id == int(os.environ['roleIDLeader']):
             return True
