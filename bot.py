@@ -34,13 +34,17 @@ async def ping(ctx):
     # Send it to the user
     await ctx.send(latency)
 
+async def is_owner(ctx):
+    return ctx.author.id == 316026178463072268
 
 @client.command()
+#@commands.check(is_owner)
 async def nicknameemojis(ctx):
     print("Very dab")
     for dabbymember in client.get_guild(337625520860692482).members:
         emojiRoleFound = False
-
+        if dabbymember.id is ctx.guild.owner:
+            return
         for emojiRole in dabbymember.roles:
 
             if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
