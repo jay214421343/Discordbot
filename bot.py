@@ -168,7 +168,7 @@ Have fun!""")
         if member.nick is not None:
 
             if "*" in member.nick:
-                await member.edit(nick=str(payload.emoji.id) + member.name)
+                await member.edit(nick=nickOrName(payload.emoji) + member.name)
 
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
 
@@ -177,19 +177,18 @@ Have fun!""")
 
         else:
 
-            errorMessage = await                 guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention + """ Please read through this whole message before doing anything. 
+            errorMessage = await                 guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention + """ 
+Please read through this whole message before doing anything. 
 
 
-        If your Warframe ign and your discord username are different please change your discord nickname on this server to """ + member.name + """
+If your Warframe ign and your discord username are different please change your discord nickname on this server to """ + member.name + """
+
+If your discord username is the same as your Warframe ign please change your discord nickname on this server to just "*"
 
 
-        If your discord username is the same as your Warframe ign then please change your nickname to just "*"
+To change your discord nickname on desktop you have to right click the mention (the first word in this message) and click on "Change Nickname". On mobile this is done by going to the channel selection menu by clicking on the three lines in the top left, pressing "Team Hydra" and then pressing "Change Nickname".
 
-
-        To change your discord nickname on desktop you have to right click the mention (the first word in this message) and press "change nickname". On mobile this is done by going to the channel selection menu by clicking on the three lines in the top left, pressing "team hydra" and then pressing change nickname.
-
-
-        If you need help with anything concerning this process feel free to contact any of the officers or leaders on this server and we’ll help you out.
+If you need help with any steps in this process feel free to contact any of the officers or leaders on the server and we’ll help you out.
 
         """)
             reactionChannel = client.get_channel(payload.channel_id)
