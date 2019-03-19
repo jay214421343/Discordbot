@@ -44,7 +44,7 @@ async def is_staff(ctx):
 async def nicknameemojis(ctx):
     for dabbymember in ctx.guild.members:
         emojiRoleFound = False
-        if dabbymember == ctx.guild.owner:
+        if dabbymember is not ctx.guild.owner:
             
             for emojiRole in dabbymember.roles:
     
