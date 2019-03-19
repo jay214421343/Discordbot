@@ -177,7 +177,7 @@ Have fun!""")
 
         else:
 
-            errorMessage = await                 guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention + """ 
+            errorMessage = await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention + """ 
 Please read through this whole message before doing anything. 
 
 
