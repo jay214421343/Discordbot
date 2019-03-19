@@ -38,7 +38,13 @@ async def is_staff(ctx):
     for permissionRole in ctx.author.roles:
         if permissionRole.id == int(os.environ['roleIDOfficer']) or permissionRole.id == int(os.environ['roleIDLeader']):
             return True
-
+        
+async def nickOrName(dabbermember):
+    if dabbermember is not None:
+        return dabbermember.nick
+    else:
+        return dabbermember.name
+    
 @client.command()
 @commands.check(is_staff)
 async def nicknameemojis(ctx):
@@ -49,7 +55,7 @@ async def nicknameemojis(ctx):
             for emojiRole in dabbymember.roles:
     
                 if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
-                    await dabbymember.edit(nick=str(os.environ['emojiIDStaff']) + str(dabbymember.nick))
+                    await dabbymember.edit(nick=os.environ['emojiIDStaff'] + nickOrName(dabbymember))
     
                     emojiRoleFound = True
     
@@ -58,7 +64,7 @@ async def nicknameemojis(ctx):
                 for emojiRole in dabbymember.roles:
     
                     if emojiRole.id == int(os.environ['roleIDMember']):
-                        await dabbymember.edit(nick=str(os.environ['emojiIDMember']) + str(dabbymember.nick))
+                        await dabbymember.edit(nick=os.environ['emojiIDMember'] + nickOrName(dabbymember))
     
                         emojiRoleFound = True
     
@@ -67,7 +73,7 @@ async def nicknameemojis(ctx):
                 for emojiRole in dabbymember.roles:
     
                     if emojiRole.id == int(os.environ['roleIDFriend']):
-                        await dabbymember.edit(nick=str(os.environ['emojiIDFriend']) + str(dabbymember.nick))
+                        await dabbymember.edit(nick=os.environ['emojiIDFriend'] + nickOrName(dabbymember))
     
                         emojiRoleFound = True
 
