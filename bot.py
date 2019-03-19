@@ -46,6 +46,7 @@ async def nicknameemojis(ctx):
     for dabbymember in ctx.guild.members:
         emojiRoleFound = False
         if dabbymember.id is ctx.guild.owner:
+            print("din mamma")
             return
         for emojiRole in dabbymember.roles:
 
