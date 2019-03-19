@@ -177,7 +177,7 @@ Have fun!""")
 
         else:
 
-            errorMessage = await                 messageChannel.send(member.mention + """ Please read through this whole message before doing anything. 
+            errorMessage = await                 guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention + """ Please read through this whole message before doing anything. 
 
 
         If your Warframe ign and your discord username are different please change your discord nickname on this server to """ + member.name + """
@@ -192,7 +192,10 @@ Have fun!""")
         If you need help with anything concerning this process feel free to contact any of the officers or leaders on this server and we’ll help you out.
 
         """)
-            time.sleep(10)
+            reactionChannel = client.get_channel(payload.channel_id)
+            reactionMessage = await reactionChannel.get_message(payload.message_id)
+            await reactionMessage.remove_reaction(payload.emoji, member)
+            time.sleep(20)
 
             await errorMessage.delete()
 
