@@ -11,6 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 client = commands.Bot(command_prefix="?")
 
+
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -34,48 +35,61 @@ async def ping(ctx):
     # Send it to the user
     await ctx.send(latency)
 
+
 async def is_staff(ctx):
     for permissionRole in ctx.author.roles:
-        if permissionRole.id == int(os.environ['roleIDOfficer']) or permissionRole.id == int(os.environ['roleIDLeader']):
+        if permissionRole.id == int(os.environ['roleIDOfficer']) or permissionRole.id == int(
+                os.environ['roleIDLeader']):
             return True
-        
+
+
 def nickOrName(dabbermember):
     if dabbermember.nick is not None:
         return dabbermember.nick
     else:
         return dabbermember.name
-    
+
 @client.command()
 @commands.check(is_staff)
 async def nicknameemojis(ctx):
     for dabbymember in ctx.guild.members:
         emojiRoleFound = False
-        if dabbymember is not ctx.guild.owner and os.environ['emojiIDStaff'] not in nickOrName(dabbymember) and os.environ['emojiIDMember'] not in nickOrName(dabbymember) and os.environ['emojiIDFriend'] not in nickOrName(dabbymember):
-            
+        if dabbymember is not ctx.guild.owner and dabbymember.id is not int(os.environ['roleIDLeader']) and os.environ[
+            'emojiIDStaff'] not in nickOrName(dabbymember) and os.environ['emojiIDMember'] not in nickOrName(
+                dabbymember) and os.environ['emojiIDFriend'] not in nickOrName(dabbymember):
+
             for emojiRole in dabbymember.roles:
-    
                 if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
-                    await dabbymember.edit(nick=os.environ['emojiIDStaff'] + nickOrName(dabbymember))
-    
-                    emojiRoleFound = True
-    
+                    if os.environ['emojiIDStaff'] not in nickOrName(dabbymember):
+                        emojiRoleFound = True
+                        await dabbymember.edit(nick=os.environ['emojiIDStaff'] + " " + nickOrName(dabbymember))
+                    else:
+                        emojiRoleFound = True
+                        await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'], os.environ['emojiIDStaff'] + " "))
+
             if not emojiRoleFound:
-    
+
                 for emojiRole in dabbymember.roles:
-    
+
                     if emojiRole.id == int(os.environ['roleIDMember']):
-                        await dabbymember.edit(nick=os.environ['emojiIDMember'] + nickOrName(dabbymember))
-    
-                        emojiRoleFound = True
-    
+                        if (os.environ['emojiIDMember'] in nickOrName(dabbymember)):
+                            emojiRoleFound = True
+                            await dabbymember.edit(nick=os.environ['emojiIDMember'] + " " + nickOrName(dabbymember))
+                        else:
+                            emojiRoleFound = True
+                            await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'], os.environ['emojiIDMember'] + " "))
+
             if not emojiRoleFound:
-    
+
                 for emojiRole in dabbymember.roles:
-    
+
                     if emojiRole.id == int(os.environ['roleIDFriend']):
-                        await dabbymember.edit(nick=os.environ['emojiIDFriend'] + nickOrName(dabbymember))
-    
-                        emojiRoleFound = True
+                        if (os.environ['emojiIDMember'] in nickOrName(dabbymember)):
+                            emojiRoleFound = True
+                            await dabbymember.edit(nick=os.environ['emojiIDFriend'] + nickOrName(dabbymember))
+                        else:
+                            emojiRoleFound = True
+                            await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'], os.environ['emojiIDFriend'] + " "))
 
 
 # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
