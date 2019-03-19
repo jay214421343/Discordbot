@@ -160,8 +160,7 @@ Have fun!""")
 
     print("Reaction added to message")
 
-    if str(payload.emoji) == str(os.environ[
-                                     'emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
+    if str(payload.emoji) == str(os.environ['emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
         print("Emoji matches")
         role = guild.get_role(int(os.environ['roleIDMember']))  # You also need the role
         messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
@@ -169,7 +168,7 @@ Have fun!""")
         if member.nick is not None:
 
             if "*" in member.nick:
-                await member.edit(nick=payload.emoji + member.name)
+                await member.edit(nick=str(payload.emoji.id) + member.name)
 
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
 
