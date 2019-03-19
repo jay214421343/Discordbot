@@ -40,7 +40,7 @@ async def is_staff(ctx):
             return True
         
 def nickOrName(dabbermember):
-    if dabbermember is not None:
+    if dabbermember.nick is not None:
         return dabbermember.nick
     else:
         return dabbermember.name
