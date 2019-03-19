@@ -3,6 +3,7 @@ import logging
 import os
 import psycopg2
 import time
+import threading
 from discord.ext import commands
 
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -194,9 +195,8 @@ If you need help with any steps in this process feel free to contact any of the 
             reactionChannel = client.get_channel(payload.channel_id)
             reactionMessage = await reactionChannel.get_message(payload.message_id)
             await reactionMessage.remove_reaction(payload.emoji, member)
-            time.sleep(20)
-
-            await errorMessage.delete()
+            t = threading.Timer(5, await errorMessage.delete())
+            t.start()
 
             return
         try:
