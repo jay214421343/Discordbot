@@ -172,7 +172,8 @@ Have fun!""")
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
 
                 'recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
-
+            else:
+                await member.edit(nick=os.environ['emojiIDMember'] + " " + member.nick)
 
         else:
 
