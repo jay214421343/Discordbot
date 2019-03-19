@@ -54,9 +54,7 @@ def nickOrName(dabbermember):
 async def nicknameemojis(ctx):
     for dabbymember in ctx.guild.members:
         emojiRoleFound = False
-        if dabbymember is not ctx.guild.owner and dabbymember.id is not int(os.environ['roleIDLeader']) and os.environ[
-            'emojiIDStaff'] not in nickOrName(dabbymember) and os.environ['emojiIDMember'] not in nickOrName(
-                dabbymember) and os.environ['emojiIDFriend'] not in nickOrName(dabbymember):
+        if dabbymember is not ctx.guild.owner and dabbymember.id is not int(os.environ['roleIDLeader']):
 
             for emojiRole in dabbymember.roles:
                 if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
