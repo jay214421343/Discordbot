@@ -178,7 +178,7 @@ Have fun!""")
         else:
 
             errorMessage = await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention +
-"""Please read through this whole message before doing anything. 
+""" please read through this whole message before doing anything. 
 
 
 If your Warframe ign and your discord username are different please change your discord nickname on this server to your warframe ign.
@@ -194,7 +194,7 @@ If you need help with any steps in this process feel free to contact any of the 
             reactionChannel = client.get_channel(payload.channel_id)
             reactionMessage = await reactionChannel.get_message(payload.message_id)
             await reactionMessage.remove_reaction(payload.emoji, member)
-            t = threading.Timer(10.0, await errorMessage.delete())
+            t = threading.Timer(10.0, await errorMessage.delete)
             t.start()
 
             return
