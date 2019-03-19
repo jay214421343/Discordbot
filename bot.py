@@ -98,7 +98,6 @@ async def nicknameemojis(ctx):
 
 # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
 
-
 # NEW MEMBER REACTION ROLES
 
 @client.event
@@ -195,7 +194,7 @@ If you need help with any steps in this process feel free to contact any of the 
             reactionChannel = client.get_channel(payload.channel_id)
             reactionMessage = await reactionChannel.get_message(payload.message_id)
             await reactionMessage.remove_reaction(payload.emoji, member)
-            t = threading.Timer(20, await errorMessage.delete)
+            t = threading.Timer(10.0, await errorMessage.delete())
             t.start()
 
             return
