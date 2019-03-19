@@ -168,12 +168,11 @@ Have fun!""")
 
             if "*" in member.nick:
                 await member.edit(nick=os.environ['emojiIDMember'] + " " + member.name)
-
+            else:
+                await member.edit(nick=os.environ['emojiIDMember'] + " " + member.nick)
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
 
                 'recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
-            else:
-                await member.edit(nick=os.environ['emojiIDMember'] + " " + member.nick)
 
         else:
 
