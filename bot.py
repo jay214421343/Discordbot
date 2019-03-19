@@ -191,10 +191,13 @@ To change your discord nickname on desktop you have to right click the mention (
 If you need help with any steps in this process feel free to contact any of the officers or leaders on the server and we’ll help you out.
 
         """)
+            def deleteErrorMessage():
+                await errorMessage.delete
+
             reactionChannel = client.get_channel(payload.channel_id)
             reactionMessage = await reactionChannel.get_message(payload.message_id)
             await reactionMessage.remove_reaction(payload.emoji, member)
-            t = threading.Timer(10.0, (await errorMessage.delete))
+            t = threading.Timer(10.0, deleteErrorMessage)
             t.start()
 
             return
