@@ -54,10 +54,13 @@ def nickOrName(dabbermember):
 async def nicknameemojis(ctx):
     for dabbymember in ctx.guild.members:
         emojiRoleFound = False
-        if dabbymember is not ctx.guild.owner and dabbymember.id is not int(os.environ['roleIDLeader']):
+        if dabbymember is not ctx.guild.owner:
+            for emojiRole in dabbymember.roles:
+                if emojiRole.id == int(os.environ['roleIDLeader']):
+                    emojiRoleFound = True
 
             for emojiRole in dabbymember.roles:
-                if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
+                if emojiRole.id == int(os.environ['roleIDOfficer']):
                     if os.environ['emojiIDStaff'] not in nickOrName(dabbymember):
                         emojiRoleFound = True
                         await dabbymember.edit(nick=os.environ['emojiIDStaff'] + " " + nickOrName(dabbymember))
