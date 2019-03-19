@@ -169,7 +169,7 @@ Have fun!""")
         if member.nick is not None:
 
             if "*" in member.nick:
-                await member.edit(nick=nickOrName(payload.emoji) + member.name)
+                await member.edit(nick=os.environ['emojiIDMember'] + " " + member.name)
 
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
 
@@ -215,6 +215,7 @@ If you need help with any steps in this process feel free to contact any of the 
         print("Sent message")
     # Gotta do same thing for friends
     elif str(payload.emoji) == str(os.environ['emojiIDFriend']):
+        await member.edit(nick=os.environ['emojiIDFriend'] + " " + nickOrName(member))
         role = guild.get_role(int(os.environ['roleIDFriend']))
     else:
         # An improper emoji has been used to react to the message
