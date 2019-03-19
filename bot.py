@@ -42,37 +42,34 @@ async def is_staff(ctx):
 @client.command()
 @commands.check(is_staff)
 async def nicknameemojis(ctx):
-    print("Very dab")
     for dabbymember in ctx.guild.members:
         emojiRoleFound = False
         if dabbymember == ctx.guild.owner:
-            print("din mamma")
-            return
-        for emojiRole in dabbymember.roles:
-
-            if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
-                print("dabonthemhaters")
-                await dabbymember.edit(nick=os.environ['emojiIDStaff'] + dabbymember.nick)
-
-                emojiRoleFound = True
-
-        if not emojiRoleFound:
-
+            
             for emojiRole in dabbymember.roles:
-
-                if emojiRole.id == int(os.environ['roleIDMember']):
-                    await dabbymember.edit(nick=os.environ['emojiIDMember'] + dabbymember.nick)
-
+    
+                if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
+                    await dabbymember.edit(nick=os.environ['emojiIDStaff'] + dabbymember.nick)
+    
                     emojiRoleFound = True
-
-        if not emojiRoleFound:
-
-            for emojiRole in dabbymember.roles:
-
-                if emojiRole.id == int(os.environ['roleIDFriend']):
-                    await dabbymember.edit(nick=os.environ['emojiIDFriend'] + dabbymember.nick)
-
-                    emojiRoleFound = True
+    
+            if not emojiRoleFound:
+    
+                for emojiRole in dabbymember.roles:
+    
+                    if emojiRole.id == int(os.environ['roleIDMember']):
+                        await dabbymember.edit(nick=os.environ['emojiIDMember'] + dabbymember.nick)
+    
+                        emojiRoleFound = True
+    
+            if not emojiRoleFound:
+    
+                for emojiRole in dabbymember.roles:
+    
+                    if emojiRole.id == int(os.environ['roleIDFriend']):
+                        await dabbymember.edit(nick=os.environ['emojiIDFriend'] + dabbymember.nick)
+    
+                        emojiRoleFound = True
 
 
 # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
