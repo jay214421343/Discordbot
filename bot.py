@@ -49,7 +49,7 @@ async def nicknameemojis(ctx):
             for emojiRole in dabbymember.roles:
     
                 if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
-                    await dabbymember.edit(nick=os.environ['emojiIDStaff'] + dabbymember.nick)
+                    await dabbymember.edit(nick=str(os.environ['emojiIDStaff']) + str(dabbymember.nick))
     
                     emojiRoleFound = True
     
@@ -58,7 +58,7 @@ async def nicknameemojis(ctx):
                 for emojiRole in dabbymember.roles:
     
                     if emojiRole.id == int(os.environ['roleIDMember']):
-                        await dabbymember.edit(nick=os.environ['emojiIDMember'] + dabbymember.nick)
+                        await dabbymember.edit(nick=str(os.environ['emojiIDMember']) + str(dabbymember.nick))
     
                         emojiRoleFound = True
     
@@ -67,7 +67,7 @@ async def nicknameemojis(ctx):
                 for emojiRole in dabbymember.roles:
     
                     if emojiRole.id == int(os.environ['roleIDFriend']):
-                        await dabbymember.edit(nick=os.environ['emojiIDFriend'] + dabbymember.nick)
+                        await dabbymember.edit(nick=str(os.environ['emojiIDFriend']) + str(dabbymember.nick))
     
                         emojiRoleFound = True
 
