@@ -38,32 +38,32 @@ async def ping(ctx):
 @client.command()
 async def nicknameemojis(ctx):
     print("Very dab")
-    for member in client.get_guild(337625520860692482).members:
+    for dabbymember in client.get_guild(337625520860692482).members:
         emojiRoleFound = False
 
-        for emojiRole in member.roles:
+        for emojiRole in dabbymember.roles:
 
             if emojiRole.id == int(os.environ['roleIDOfficer']) or emojiRole.id == int(os.environ['roleIDLeader']):
                 print("dabonthemhaters")
-                await member.edit(nick=os.environ['emojiIDStaff'] + member.nick)
+                await dabbymember.edit(nick=os.environ['emojiIDStaff'] + dabbymember.nick)
 
                 emojiRoleFound = True
 
         if not emojiRoleFound:
 
-            for emojiRole in member.roles:
+            for emojiRole in dabbymember.roles:
 
                 if emojiRole.id == int(os.environ['roleIDMember']):
-                    await member.edit(nick=os.environ['emojiIDMember'] + member.nick)
+                    await dabbymember.edit(nick=os.environ['emojiIDMember'] + dabbymember.nick)
 
                     emojiRoleFound = True
 
         if not emojiRoleFound:
 
-            for emojiRole in member.roles:
+            for emojiRole in dabbymember.roles:
 
                 if emojiRole.id == int(os.environ['roleIDFriend']):
-                    await member.edit(nick=os.environ['emojiIDFriend'] + member.nick)
+                    await dabbymember.edit(nick=os.environ['emojiIDFriend'] + dabbymember.nick)
 
                     emojiRoleFound = True
 
