@@ -34,12 +34,12 @@ async def ping(ctx):
     # Send it to the user
     await ctx.send(latency)
 
-def is_staff(ctx):
+async def is_staff(ctx):
     for permissionRole in ctx.author.roles:
         if permissionRole.id == int(os.environ['roleIDOfficer']) or permissionRole.id == int(os.environ['roleIDLeader']):
             return True
         
-async def nickOrName(dabbermember):
+def nickOrName(dabbermember):
     if dabbermember is not None:
         return dabbermember.nick
     else:
