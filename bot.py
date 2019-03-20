@@ -67,7 +67,7 @@ async def nicknameemojis(ctx):
                         await dabbymember.edit(nick=os.environ['emojiIDStaff'] + " " + nickOrName(dabbymember))
                     else:
                         emojiRoleFound = True
-                        await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'], os.environ['emojiIDStaff'] + " "))
+                        await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'] + " ", os.environ['emojiIDStaff'] + " "))
 
             if not emojiRoleFound:
 
@@ -79,7 +79,7 @@ async def nicknameemojis(ctx):
                             await dabbymember.edit(nick=os.environ['emojiIDMember'] + " " + nickOrName(dabbymember))
                         else:
                             emojiRoleFound = True
-                            await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'], os.environ['emojiIDMember'] + " "))
+                            await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'] + " ", os.environ['emojiIDMember'] + " "))
 
             if not emojiRoleFound:
 
@@ -91,7 +91,7 @@ async def nicknameemojis(ctx):
                             await dabbymember.edit(nick=os.environ['emojiIDFriend'] + nickOrName(dabbymember))
                         else:
                             emojiRoleFound = True
-                            await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'], os.environ['emojiIDFriend'] + " "))
+                            await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'] + " ", os.environ['emojiIDFriend'] + " "))
         statusMessage.delete()
         await ctx.channel.send("Nickname emojis have been changed.")
 
