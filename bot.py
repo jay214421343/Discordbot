@@ -51,7 +51,7 @@ def nickOrName(dabbermember):
 
 
 async def deleteErrorMessage(dabErrorMessage):
-    await asyncio.sleep(5)
+    await asyncio.sleep(20)
     await dabErrorMessage.delete()
     client.deleteErrorMessage_task.cancel()
 
