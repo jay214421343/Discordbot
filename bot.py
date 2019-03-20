@@ -135,14 +135,15 @@ async def on_member_update(before, after):
         new_role = next(role for role in after.roles if role not in before.roles)
 
         for role in after.roles:
-            if role.id == int(os.environ['roleIDStaff']):
+            if role.id == int(os.environ['roleIDLeader']) or role.id == int(os.environ['roleIDOfficer']):
                 isStaff = True
                 break
 
-        if new_role.id is not int(os.environ['roleIDStaff']) and isStaff:
+        if new_role.id is not int(os.environ['roleIDLeader']) and new_role.id is not int(
+                os.environ['roleIDOfficer']) and new_role and isStaff:
             return
 
-        if new_role.id == int(os.environ['roleIDStaff']):
+        if new_role.id == int(os.environ['roleIDOfficer']):
             for role in after.roles:
                 if role.id == int(os.environ['roleIDFriend']):
                     after.remove_roles(role)
