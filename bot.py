@@ -22,7 +22,7 @@ async def on_ready():
     mentionMessages = []
     botActivity = discord.Activity(name=os.environ['activityName'], type=discord.ActivityType.watching)
     await client.change_presence(activity=botActivity)
-
+    # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
 
 @client.command()
 async def ping(ctx):
@@ -52,7 +52,7 @@ def nickOrName(dabbermember):
 
 async def deleteErrorMessage(dabErrorMessage):
     asyncio.sleep(5)
-    dabErrorMessage.delete()
+    await dabErrorMessage.delete()
     client.deleteErrorMessage_task.cancel()
 
 @client.command()
@@ -126,7 +126,54 @@ async def nicknameemojis(ctx):
         statusMessage.delete()
         await ctx.channel.send("Nickname emojis have been changed.")
 
-# await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
+
+@client.event  # This event runs whenever a user updates: status, game playing, avatar, nickname or role
+async def on_member_update(before, after):
+    isStaff = False
+
+    if len(before.roles) < len(after.roles):
+        new_role = next(role for role in after.roles if role not in before.roles)
+
+        for role in after.roles:
+            if role.id == int(os.environ['roleIDStaff']):
+                isStaff = True
+                break
+
+        if new_role.id is not int(os.environ['roleIDStaff']) and isStaff:
+            return
+
+        if new_role.id == int(os.environ['roleIDStaff']):
+            for role in after.roles:
+                if role.id == int(os.environ['roleIDFriend']):
+                    after.remove_roles(role)
+                    await after.edit(
+                        nick=nickOrName(after).replace(os.environ['emojiIDFriend'] + " ",
+                                                       os.environ['emojiIDStaff'] + " "))
+                    return
+
+                elif role.id == int(os.environ['roleIDMember']):
+                    await after.edit(
+                        nick=nickOrName(after).replace(os.environ['emojiIDMember'] + " ",
+                                                       os.environ['emojiIDStaff'] + " "))
+                    return
+
+        if new_role.id == int(os.environ['roleIDMember']):
+            for role in after.roles:
+                if role.id == int(os.environ['roleIDFriend']):
+                    after.remove_roles(role)
+                    await after.edit(
+                        nick=nickOrName(after).replace(os.environ['emojiIDFriend'] + " ",
+                                                       os.environ['emojiIDMember'] + " "))
+                    return
+
+        if new_role.id == int(os.environ['roleIDFriend']):
+            for role in after.roles:
+                if role.id == int(os.environ['roleIDMember']):
+                    after.remove_roles(role)
+                    await after.edit(
+                        nick=nickOrName(after).replace(os.environ['emojiIDMember'] + " ",
+                                                       os.environ['emojiIDFriend'] + " "))
+                    return
 
 # NEW MEMBER REACTION ROLES
 
