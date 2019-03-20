@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import os
 
@@ -10,7 +11,6 @@ DATABASE_URL = os.environ['DATABASE_URL']
 logging.basicConfig(level=logging.INFO)
 
 client = commands.Bot(command_prefix="?")
-
 
 @client.event
 async def on_ready():
@@ -49,6 +49,12 @@ def nickOrName(dabbermember):
     else:
         return dabbermember.name
 
+
+async def deleteErrorMessage(dabErrorMessage):
+    asyncio.sleep(5)
+    dabErrorMessage.delete()
+    client.deleteErrorMessage_task.cancel()
+
 @client.command()
 @commands.check(is_staff)
 async def nicknameemojis(ctx):
@@ -61,37 +67,62 @@ async def nicknameemojis(ctx):
                     emojiRoleFound = True
 
             for emojiRole in dabbymember.roles:
-                if emojiRole.id == int(os.environ['roleIDOfficer']):
-                    if os.environ['emojiIDStaff'] not in nickOrName(dabbymember):
-                        emojiRoleFound = True
-                        await dabbymember.edit(nick=os.environ['emojiIDStaff'] + " " + nickOrName(dabbymember))
-                    else:
-                        emojiRoleFound = True
-                        await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'] + " ", os.environ['emojiIDStaff'] + " "))
-
+                if (os.environ['emojiIDStaff'] in nickOrName(dabbymember)):
+                    emojiRoleFound = True
+                    await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'] + " ",
+                                                                                os.environ['emojiIDStaff'] + " "))
+                elif os.environ['emojiIDFriend'] in nickOrName(dabbymember):
+                    await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'] + " ",
+                                                                                os.environ['emojiIDStaff'] + " "))
+                elif os.environ['emojiIDMember'] in nickOrName(dabbymember):
+                    await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'] + " ",
+                                                                                os.environ['emojiIDStaff'] + " "))
+                else:
+                    emojiRoleFound = True
+                    await dabbymember.edit(nick=os.environ['emojiIDMember'] + " " + nickOrName(dabbymember))
             if not emojiRoleFound:
 
                 for emojiRole in dabbymember.roles:
 
                     if emojiRole.id == int(os.environ['roleIDMember']):
-                        if (os.environ['emojiIDMember'] not in nickOrName(dabbymember)):
+                        if (os.environ['emojiIDMember'] in nickOrName(dabbymember)):
                             emojiRoleFound = True
-                            await dabbymember.edit(nick=os.environ['emojiIDMember'] + " " + nickOrName(dabbymember))
+                            await dabbymember.edit(
+                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'] + " ",
+                                                                     os.environ['emojiIDMember'] + " "))
+                        elif os.environ['emojiIDFriend'] in nickOrName(dabbymember):
+                            await dabbymember.edit(
+                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'] + " ",
+                                                                     os.environ['emojiIDMember'] + " "))
+                        elif os.environ['emojiIDtaff'] in nickOrName(dabbymember):
+                            await dabbymember.edit(
+                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'] + " ",
+                                                                     os.environ['emojiIDMember'] + " "))
                         else:
                             emojiRoleFound = True
-                            await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'] + " ", os.environ['emojiIDMember'] + " "))
+                            await dabbymember.edit(nick=os.environ['emojiIDMember'] + " " + nickOrName(dabbymember))
 
             if not emojiRoleFound:
 
                 for emojiRole in dabbymember.roles:
 
                     if emojiRole.id == int(os.environ['roleIDFriend']):
-                        if (os.environ['emojiIDFriend'] not in nickOrName(dabbymember)):
+                        if (os.environ['emojiIDFriend'] in nickOrName(dabbymember)):
                             emojiRoleFound = True
-                            await dabbymember.edit(nick=os.environ['emojiIDFriend'] + nickOrName(dabbymember))
+                            await dabbymember.edit(
+                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'] + " ",
+                                                                     os.environ['emojiIDFriend'] + " "))
+                        elif os.environ['emojiIDMember'] in nickOrName(dabbymember):
+                            await dabbymember.edit(
+                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'] + " ",
+                                                                     os.environ['emojiIDFriend'] + " "))
+                        elif os.environ['emojiIDtaff'] in nickOrName(dabbymember):
+                            await dabbymember.edit(
+                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'] + " ",
+                                                                     os.environ['emojiIDFriend'] + " "))
                         else:
                             emojiRoleFound = True
-                            await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'] + " ", os.environ['emojiIDFriend'] + " "))
+                            await dabbymember.edit(nick=os.environ['emojiIDFriend'] + " " + nickOrName(dabbymember))
         statusMessage.delete()
         await ctx.channel.send("Nickname emojis have been changed.")
 
@@ -176,7 +207,7 @@ Have fun!""")
 
         else:
 
-            await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention +
+            errorMessage = await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention +
 """ please read through this whole message before doing anything. 
 
 
@@ -191,6 +222,7 @@ If you need help with any steps in this process feel free to contact any of the 
             reactionChannel = client.get_channel(payload.channel_id)
             reactionMessage = await reactionChannel.get_message(payload.message_id)
             await reactionMessage.remove_reaction(payload.emoji, member)
+            client.deleteErrorMessage_task = client.loop.create_task(deleteErrorMessage(errorMessage))
             return
 
         try:
