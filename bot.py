@@ -146,7 +146,7 @@ async def on_member_update(before, after):
         if new_role.id == int(os.environ['roleIDOfficer']):
             for role in after.roles:
                 if role.id == int(os.environ['roleIDFriend']):
-                    after.remove_roles(role)
+                    await after.remove_roles(role)
                     await after.edit(
                         nick=nickOrName(after).replace(os.environ['emojiIDFriend'] + " ",
                                                        os.environ['emojiIDStaff'] + " "))
@@ -161,7 +161,7 @@ async def on_member_update(before, after):
         if new_role.id == int(os.environ['roleIDMember']):
             for role in after.roles:
                 if role.id == int(os.environ['roleIDFriend']):
-                    after.remove_roles(role)
+                    await after.remove_roles(role)
                     await after.edit(
                         nick=nickOrName(after).replace(os.environ['emojiIDFriend'] + " ",
                                                        os.environ['emojiIDMember'] + " "))
@@ -170,7 +170,7 @@ async def on_member_update(before, after):
         if new_role.id == int(os.environ['roleIDFriend']):
             for role in after.roles:
                 if role.id == int(os.environ['roleIDMember']):
-                    after.remove_roles(role)
+                    await after.remove_roles(role)
                     await after.edit(
                         nick=nickOrName(after).replace(os.environ['emojiIDMember'] + " ",
                                                        os.environ['emojiIDFriend'] + " "))
