@@ -127,6 +127,31 @@ async def nicknameemojis(ctx):
         await ctx.channel.send("Nickname emojis have been changed.")
 
 
+@client.command()
+@commands.check(is_staff)
+async def spreadsheetmanualupdate(ctx):
+    for dabMember in ctx.guild.members:
+        epicMember = []
+        # DanisDGK Replace this comment with a check for if nickOrName(dabMember) is already in name column of the spreadsheet with your spreadsheet magic. If it is just return.
+
+        epicMember.insert(0, nickOrName())
+
+        if dabMember.top_role.id == int(os.environ['roleIDOfficer']):
+            epicMember.insert(1, "Officer")
+
+        elif dabMember.top_role.id == int(os.environ['roleIDMember']):
+            epicMember.insert(1, "Member")
+
+        elif dabMember.top_role.id == int(os.environ['roleIDFriend']):
+            epicMember.insert(1, "Friend")
+
+        else:
+            epicMember.insert(1, "Nothing")
+            print("Dafuq")
+
+        # DanisDGK Insert epicMember[0] into the spreadsheet as the name and epicMember[1] as the role here.
+
+
 @client.event  # This event runs whenever a user updates: status, game playing, avatar, nickname or role
 async def on_member_update(before, after):
     isStaff = False
@@ -146,6 +171,7 @@ async def on_member_update(before, after):
         if new_role.id == int(os.environ['roleIDOfficer']):
             for role in after.roles:
                 if role.id == int(os.environ['roleIDFriend']):
+                    #DanisDGK Here, if possible, search for the member in the spreadsheet with the name returned by nickOrName(after) and change their rank to "Staff"
                     await after.remove_roles(role)
                     await after.edit(
                         nick=nickOrName(after).replace(os.environ['emojiIDFriend'] + " ",
@@ -161,6 +187,7 @@ async def on_member_update(before, after):
         if new_role.id == int(os.environ['roleIDMember']):
             for role in after.roles:
                 if role.id == int(os.environ['roleIDFriend']):
+                    #DanisDGK Here, if possible, search for the member in the spreadsheet with the name returned by nickOrName(after) and change their rank to "Member"
                     await after.remove_roles(role)
                     await after.edit(
                         nick=nickOrName(after).replace(os.environ['emojiIDFriend'] + " ",
@@ -170,6 +197,7 @@ async def on_member_update(before, after):
         if new_role.id == int(os.environ['roleIDFriend']):
             for role in after.roles:
                 if role.id == int(os.environ['roleIDMember']):
+                    #DanisDGK Here, if possible, search for the member in the spreadsheet with the name returned by nickOrName(after) and change their rank to "Friend"
                     await after.remove_roles(role)
                     await after.edit(
                         nick=nickOrName(after).replace(os.environ['emojiIDMember'] + " ",
@@ -241,6 +269,10 @@ Have fun!""")
     if str(payload.emoji) == str(os.environ['emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
         print("Emoji matches")
         role = guild.get_role(int(os.environ['roleIDMember']))  # You also need the role
+        epicMember = []
+        epicMember.insert(0, nickOrName(member))
+        epicMember.insert(1, "Member")
+        #DanisDGK Again, just insert epicMember[0] as the name and epicMember[1] as the role here.
         messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
 
         if member.nick is not None:
@@ -291,6 +323,10 @@ If you need help with any steps in this process feel free to contact any of the 
     elif str(payload.emoji) == str(os.environ['emojiIDFriend']):
         await member.edit(nick=os.environ['emojiIDFriend'] + " " + nickOrName(member))
         role = guild.get_role(int(os.environ['roleIDFriend']))
+        epicMember = []
+        epicMember.insert(0, nickOrName(member))
+        epicMember.insert(1, "Friend")
+        #DanisDGK Again, just insert epicMember[0] as the name and epicMember[1] as the role here.
     else:
         # An improper emoji has been used to react to the message
         print("Wrong emoji")
