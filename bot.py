@@ -189,7 +189,7 @@ async def on_member_remove(member):
             await messageChannel.send(
                 os.environ['adminPing'] + """
                 ** A member has left. **""" + member.name + " ( " + member.id + " ) " + """
-                They had the roles: """ + ','.join(member.roles))
+                They had the roles: """ + ','.join(roleName.name for roleName in member.roles))
             break
 
 @client.event  # This event runs whenever a user updates: status, game playing, avatar, nickname or role
