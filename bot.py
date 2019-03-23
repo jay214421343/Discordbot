@@ -191,7 +191,7 @@ async def on_member_remove(member):
             await messageChannel.send(
                 os.environ['adminPing'] + """**
 A member has left. **
-""" + member.name + " (" + str(member.id) + ") " + """
+""" + member + " (" + str(member.id) + ") " + """
 They had the roles: """ + ', '.join(nameRole.name for nameRole in memberRoles))
 
             break
