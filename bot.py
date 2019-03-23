@@ -187,7 +187,9 @@ async def on_member_remove(member):
     for memberCheckRole in member.roles:
         if memberCheckRole.id == int(os.environ['roleIDMember']):
             await messageChannel.send(
-                "Clan member " + os.environ['adminPing'] + " " + nickOrName(member) + " has left the server.")
+                os.environ['adminPing'] + """
+                ** A member has left. **""" + member.name + " ( " + member.id + " ) " + """
+                They had the roles: """ + ','.join(member.roles))
             break
 
 @client.event  # This event runs whenever a user updates: status, game playing, avatar, nickname or role
