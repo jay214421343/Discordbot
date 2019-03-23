@@ -66,7 +66,6 @@ async def nicknameemojis(ctx):
             for emojiRole in dabbymember.roles:
                 if emojiRole.id == int(os.environ['roleIDLeader']):
                     emojiRoleFound = True
-                    print("Fuck")
                     break
 
             if not emojiRoleFound:
@@ -183,9 +182,9 @@ async def spreadsheetmanualupdate(ctx):
 
 @client.event
 async def on_member_join(member):
-    messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
+    messageChannel = client.get_channel(int(os.environ['staffChannelID']))
 
-    for memberCheckRole in member:
+    for memberCheckRole in member.roles:
         if memberCheckRole.id == int(os.environ['roleIDMember']):
             await messageChannel.send(
                 "Clan member " + os.environ['adminPing'] + " " + nickOrName(member) + " has left the server.")
