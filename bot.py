@@ -181,6 +181,16 @@ async def spreadsheetmanualupdate(ctx):
         # DanisDGK Insert epicMember[0] into the spreadsheet as the name and epicMember[1] as the role here.
 
 
+@client.event
+async def on_member_join(member):
+    messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
+
+    for memberCheckRole in member:
+        if memberCheckRole.id == int(os.environ['roleIDMember']):
+            await messageChannel.send(
+                "Clan member " + os.environ['adminPing'] + " " + nickOrName(member) + " has left the server.")
+            break
+
 @client.event  # This event runs whenever a user updates: status, game playing, avatar, nickname or role
 async def on_member_update(before, after):
     isStaff = False
