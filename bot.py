@@ -72,7 +72,7 @@ async def nicknameemojis(ctx):
             if not emojiRoleFound:
                 for emojiRole in dabbymember.roles:
                     if emojiRole.id == int(os.environ['roleIDOfficer']):
-                        global emojiRoleFound
+
                         emojiRoleFound = True
                         if (os.environ['emojiIDStaff'] in nickOrName(dabbymember)):
                             await dabbymember.edit(
@@ -100,7 +100,7 @@ async def nicknameemojis(ctx):
             if not emojiRoleFound:
                 for emojiRole in dabbymember.roles:
                     if emojiRole.id == int(os.environ['roleIDMember']):
-                        global emojiRoleFound
+
                         emojiRoleFound = True
                         if (os.environ['emojiIDMember'] in nickOrName(dabbymember)):
                             await dabbymember.edit(
@@ -128,7 +128,7 @@ async def nicknameemojis(ctx):
             if not emojiRoleFound:
                 for emojiRole in dabbymember.roles:
                     if emojiRole.id == int(os.environ['roleIDFriend']):
-                        global emojiRoleFound
+
                         emojiRoleFound = True
                         if (os.environ['emojiIDFriend'] in nickOrName(dabbymember)):
                             await dabbymember.edit(
