@@ -332,7 +332,7 @@ If your discord username is the same as your Warframe ign please change your dis
 
 To change your discord nickname on desktop you have to right click the mention (the first word in this message) and click on "Change Nickname". On mobile this is done by going to the channel selection menu by clicking on the three lines in the top left, pressing "Team Hydra" and then pressing "Change Nickname".
 
-If you need help with any steps in this process feel free to contact any of the officers or leaders on the server and we’ll help you out.""")
+If you need help with any steps in this process feel free to contact any of the staff on the server (people with stars next to their names) and we’ll help you out.""")
             reactionChannel = client.get_channel(payload.channel_id)
             reactionMessage = await reactionChannel.get_message(payload.message_id)
             await reactionMessage.remove_reaction(payload.emoji, member)
