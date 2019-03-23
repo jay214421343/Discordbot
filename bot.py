@@ -60,6 +60,7 @@ async def deleteErrorMessage(dabErrorMessage):
 async def nicknameemojis(ctx):
     statusMessage = await ctx.channel.send("Changing nickname emojis...")
     for dabbymember in ctx.guild.members:
+        global emojiRoleFound
         emojiRoleFound = False
         if dabbymember is not ctx.guild.owner:
             for emojiRole in dabbymember.roles:
