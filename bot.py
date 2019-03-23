@@ -67,7 +67,7 @@ async def nicknameemojis(ctx):
                     emojiRoleFound = True
 
             for emojiRole in dabbymember.roles:
-                if emojiRole.id == int(os.environ['roleIDStaff']):
+                if emojiRole.id == int(os.environ['roleIDOfficer']):
                     if (os.environ['emojiIDStaff'] in nickOrName(dabbymember)):
                         emojiRoleFound = True
                         await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'] + " ",
