@@ -147,7 +147,7 @@ async def nicknameemojis(ctx):
                             emojiRoleFound = True
                             await dabbymember.edit(
                                 nick=os.environ['emojiIDFriend'] + " " + nickOrName(dabbymember).replace(" ", ""))
-    statusMessage.delete()
+    await statusMessage.delete()
     await ctx.channel.send("Nickname emojis have been changed.")
 
 
