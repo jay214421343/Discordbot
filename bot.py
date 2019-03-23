@@ -163,7 +163,7 @@ async def spreadsheetmanualupdate(ctx):
         epicMember = []
         # DanisDGK Replace this comment with a check for if nickOrName(dabMember) is already in name column of the spreadsheet with your spreadsheet magic. If it is just return.
 
-        epicMember.insert(0, nickOrName())
+        epicMember.insert(0, nickOrName(dabMember))
 
         if dabMember.top_role.id == int(os.environ['roleIDOfficer']):
             epicMember.insert(1, "Officer")
