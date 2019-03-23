@@ -117,7 +117,7 @@ async def nicknameemojis(ctx):
                             await dabbymember.edit(
                                 nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'] + " ",
                                                                      os.environ['emojiIDFriend'] + " "))
-                        elif os.environ['emojiIDtaff'] in nickOrName(dabbymember):
+                        elif os.environ['emojiIDStaff'] in nickOrName(dabbymember):
                             await dabbymember.edit(
                                 nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'] + " ",
                                                                      os.environ['emojiIDFriend'] + " "))
