@@ -181,7 +181,7 @@ async def spreadsheetmanualupdate(ctx):
 
 
 @client.event
-async def on_member_join(member):
+async def on_member_remove(member):
     messageChannel = client.get_channel(int(os.environ['staffChannelID']))
 
     for memberCheckRole in member.roles:
