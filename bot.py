@@ -70,13 +70,13 @@ async def nicknameemojis(ctx):
                 if emojiRole.id == int(os.environ['roleIDOfficer']):
                     if (os.environ['emojiIDStaff'] in nickOrName(dabbymember)):
                         emojiRoleFound = True
-                        await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'] + " ",
+                        await dabbymember.edit(nick=nickOrName(dabbymember).replace(" ", "").replace(os.environ['emojiIDStaff'] + " ",
                                                                                 os.environ['emojiIDStaff'] + " "))
                     elif os.environ['emojiIDFriend'] in nickOrName(dabbymember):
-                        await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'] + " ",
+                        await dabbymember.edit(nick=nickOrName(dabbymember).replace(" ", "").replace(os.environ['emojiIDFriend'] + " ",
                                                                                 os.environ['emojiIDStaff'] + " "))
                     elif os.environ['emojiIDMember'] in nickOrName(dabbymember):
-                        await dabbymember.edit(nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'] + " ",
+                        await dabbymember.edit(nick=nickOrName(dabbymember).replace(" ", "").replace(os.environ['emojiIDMember'] + " ",
                                                                                 os.environ['emojiIDStaff'] + " "))
                     else:
                         emojiRoleFound = True
@@ -89,15 +89,15 @@ async def nicknameemojis(ctx):
                         if (os.environ['emojiIDMember'] in nickOrName(dabbymember)):
                             emojiRoleFound = True
                             await dabbymember.edit(
-                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'] + " ",
+                                nick=nickOrName(dabbymember).replace(" ", "").replace(os.environ['emojiIDMember'] + " ",
                                                                      os.environ['emojiIDMember'] + " "))
                         elif os.environ['emojiIDFriend'] in nickOrName(dabbymember):
                             await dabbymember.edit(
-                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'] + " ",
+                                nick=nickOrName(dabbymember).replace(" ", "").replace(os.environ['emojiIDFriend'] + " ",
                                                                      os.environ['emojiIDMember'] + " "))
-                        elif os.environ['emojiIDtaff'] in nickOrName(dabbymember):
+                        elif os.environ['emojiIDStaff'] in nickOrName(dabbymember):
                             await dabbymember.edit(
-                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'] + " ",
+                                nick=nickOrName(dabbymember).replace(" ", "").replace(os.environ['emojiIDStaff'] + " ",
                                                                      os.environ['emojiIDMember'] + " "))
                         else:
                             emojiRoleFound = True
@@ -111,20 +111,20 @@ async def nicknameemojis(ctx):
                         if (os.environ['emojiIDFriend'] in nickOrName(dabbymember)):
                             emojiRoleFound = True
                             await dabbymember.edit(
-                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDFriend'] + " ",
+                                nick=nickOrName(dabbymember).replace(" ", "").replace(os.environ['emojiIDFriend'] + " ",
                                                                      os.environ['emojiIDFriend'] + " "))
                         elif os.environ['emojiIDMember'] in nickOrName(dabbymember):
                             await dabbymember.edit(
-                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDMember'] + " ",
+                                nick=nickOrName(dabbymember).replace(" ", "").replace(" ", "").replace(os.environ['emojiIDMember'] + " ",
                                                                      os.environ['emojiIDFriend'] + " "))
                         elif os.environ['emojiIDStaff'] in nickOrName(dabbymember):
                             await dabbymember.edit(
-                                nick=nickOrName(dabbymember).replace(os.environ['emojiIDStaff'] + " ",
+                                nick=nickOrName(dabbymember).replace(" ", "").replace(os.environ['emojiIDStaff'] + " ",
                                                                      os.environ['emojiIDFriend'] + " "))
                         else:
                             emojiRoleFound = True
                             await dabbymember.edit(nick=os.environ['emojiIDFriend'] + " " + nickOrName(dabbymember))
-        statusMessage.delete()
+    statusMessage.delete()
     await ctx.channel.send("Nickname emojis have been changed.")
 
 
@@ -175,13 +175,13 @@ async def on_member_update(before, after):
                     #DanisDGK Here, if possible, search for the member in the spreadsheet with the name returned by nickOrName(after) and change their rank to "Staff"
                     await after.remove_roles(role)
                     await after.edit(
-                        nick=nickOrName(after).replace(os.environ['emojiIDFriend'] + " ",
+                        nick=nickOrName(after).replace(" ", "").replace(os.environ['emojiIDFriend'] + " ",
                                                        os.environ['emojiIDStaff'] + " "))
                     return
 
                 elif role.id == int(os.environ['roleIDMember']):
                     await after.edit(
-                        nick=nickOrName(after).replace(os.environ['emojiIDMember'] + " ",
+                        nick=nickOrName(after).replace(" ", "").replace(os.environ['emojiIDMember'] + " ",
                                                        os.environ['emojiIDStaff'] + " "))
                     return
 
@@ -191,7 +191,7 @@ async def on_member_update(before, after):
                     #DanisDGK Here, if possible, search for the member in the spreadsheet with the name returned by nickOrName(after) and change their rank to "Member"
                     await after.remove_roles(role)
                     await after.edit(
-                        nick=nickOrName(after).replace(os.environ['emojiIDFriend'] + " ",
+                        nick=nickOrName(after).replace(" ", "").replace(os.environ['emojiIDFriend'] + " ",
                                                        os.environ['emojiIDMember'] + " "))
                     return
 
@@ -201,7 +201,7 @@ async def on_member_update(before, after):
                     #DanisDGK Here, if possible, search for the member in the spreadsheet with the name returned by nickOrName(after) and change their rank to "Friend"
                     await after.remove_roles(role)
                     await after.edit(
-                        nick=nickOrName(after).replace(os.environ['emojiIDMember'] + " ",
+                        nick=nickOrName(after).replace(" ", "").replace(os.environ['emojiIDMember'] + " ",
                                                        os.environ['emojiIDFriend'] + " "))
                     return
 
