@@ -66,6 +66,7 @@ async def nicknameemojis(ctx):
             for emojiRole in dabbymember.roles:
                 if emojiRole.id == int(os.environ['roleIDLeader']):
                     emojiRoleFound = True
+                    print("Fuck")
                     break
 
             if not emojiRoleFound:
