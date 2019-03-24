@@ -186,7 +186,6 @@ async def on_member_remove(member):
 
     for memberCheckRole in member.roles:
         if memberCheckRole.id == int(os.environ['roleIDMember']):
-            next(memberRoles)
             await messageChannel.send(
                 os.environ['adminPing'] + """**
 A member has left. **
