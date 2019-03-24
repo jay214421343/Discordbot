@@ -186,13 +186,12 @@ async def on_member_remove(member):
 
     for memberCheckRole in member.roles:
         if memberCheckRole.id == int(os.environ['roleIDMember']):
-            memberRoles = iter(member.roles)
             next(memberRoles)
             await messageChannel.send(
                 os.environ['adminPing'] + """**
 A member has left. **
 """ + str(member) + " (" + str(member.id) + ") " + """
-They had the roles: """ + ', '.join(nameRole.name for nameRole in memberRoles[:-1]) + ' and ' + nameRole.name for nameRole in memberRoles[-1] + ".")
+They had the roles: """ + ', '.join(nameRole.name for nameRole in member.roles[1:-1]) + ' and ' + nameRole.name for nameRole in member.roles[-1] + ".")
 
             break
 
