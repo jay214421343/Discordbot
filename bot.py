@@ -55,6 +55,14 @@ async def deleteErrorMessage(dabErrorMessage):
     await dabErrorMessage.delete()
     client.deleteErrorMessage_task.cancel()
 
+
+@client.command()
+@commands.check(is_staff)
+async def fixGhostWolfsName(ctx):
+    GhostWolf = ctx.guild.get_member(146356716894814209)
+    GhostWolf.edit(nick="👑 GhostWolf")
+
+
 @client.command()
 @commands.check(is_staff)
 async def nicknameemojis(ctx):
