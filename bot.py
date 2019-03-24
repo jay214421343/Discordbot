@@ -192,7 +192,7 @@ async def on_member_remove(member):
                 os.environ['adminPing'] + """**
 A member has left. **
 """ + str(member) + " (" + str(member.id) + ") " + """
-They had the roles: """ + ', '.join(nameRole.name for nameRole in memberRoles))
+They had the roles: """ + ', '.join(nameRole.name for nameRole in memberRoles[:-1]) + ' and ' + nameRole.name for nameRole in memberRoles[-1] + ".")
 
             break
 
