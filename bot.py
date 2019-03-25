@@ -207,6 +207,11 @@ They had the roles: """ + (', '.join(nameRole.name for nameRole in member.roles[
 async def on_member_update(before, after):
     isStaff = False
 
+    async for entry in after.guild.audit_logs(limit=1, action=discord.AuditLogAction.member_update):
+        if entry.target.id == before.id:
+            if entry.user.id == client.user.id:
+                return
+
     if len(before.roles) < len(after.roles):
         new_role = next(role for role in after.roles if role not in before.roles)
 
@@ -324,6 +329,10 @@ Have fun!""")
     if str(payload.emoji) == str(os.environ['emojiIDMember']):  # payload.emoji is a PartialEmoji. You have different possibilities to check for a proper reaction
         print("Emoji matches")
         role = guild.get_role(int(os.environ['roleIDMember']))  # You also need the role
+        async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.member_role_update):
+            if entry.target.id == member.id:
+                if entry.user.id == client.user.id:
+                    return
         epicMember = []
         epicMember.insert(0, nickOrName(member))
         epicMember.insert(1, "Member")
@@ -378,6 +387,10 @@ If you need help with any steps in this process feel free to contact any of the 
     elif str(payload.emoji) == str(os.environ['emojiIDFriend']):
         await member.edit(nick=os.environ['emojiIDFriend'] + " " + nickOrName(member).replace(" ", ""))
         role = guild.get_role(int(os.environ['roleIDFriend']))
+        async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.member_role_update):
+            if entry.target.id == member.id:
+                if entry.user.id == client.user.id:
+                    return
         epicMember = []
         epicMember.insert(0, nickOrName(member))
         epicMember.insert(1, "Friend")
