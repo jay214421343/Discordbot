@@ -10,7 +10,6 @@ DATABASE_URL = os.environ['DATABASE_URL']
 
 logging.basicConfig(level=logging.INFO)
 
-global testing
 testing = False
 
 client = commands.Bot(command_prefix="?")
