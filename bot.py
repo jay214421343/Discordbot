@@ -346,13 +346,13 @@ Have fun!""")
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
 
                 'recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
-        elif testing and "test" in member.name.lower():
+        elif member.nick is not None and testing and "test" in member.name.lower():
             if "*" in member.nick:
                 await member.edit(nick=os.environ['emojiIDMember'] + " " + member.name.replace(" ", ""))
             else:
                 await member.edit(nick=os.environ['emojiIDMember'] + " " + member.nick.replace(" ", ""))
-        
-        elif not testing and member.nick is not None:
+
+        elif member.nick is not None and not testing and member.nick is not None:
             if "*" in member.nick:
                 await member.edit(nick=os.environ['emojiIDMember'] + " " + member.name.replace(" ", ""))
             else:
