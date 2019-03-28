@@ -10,6 +10,9 @@ DATABASE_URL = os.environ['DATABASE_URL']
 
 logging.basicConfig(level=logging.INFO)
 
+global testing
+testing = False
+
 client = commands.Bot(command_prefix="?")
 
 @client.event
@@ -18,8 +21,6 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    global testing
-    testing = False
     
     mentionMessages = []
     botActivity = discord.Activity(name=os.environ['activityName'], type=discord.ActivityType.watching)
