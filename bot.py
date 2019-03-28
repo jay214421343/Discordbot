@@ -348,7 +348,7 @@ Have fun!""")
 
                 'recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
 
-        elif not testing:
+        elif not testing and member.nick is not None:
             if "*" in member.nick:
                 await member.edit(nick=os.environ['emojiIDMember'] + " " + member.name.replace(" ", ""))
             else:
@@ -356,7 +356,7 @@ Have fun!""")
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
 
                 'recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
-
+        elif member.nick is None:
             errorMessage = await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention +
 """ please read through this whole message before doing anything. 
 
