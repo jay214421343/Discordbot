@@ -33,7 +33,7 @@ async def testingmode(ctx):
         testing = False
         await ctx.send("Testing mode deactivated")
     else:
-        False
+        testing = True
         await ctx.send("Testing mode activated")
 async def is_staff(ctx):
     for permissionRole in ctx.author.roles:
@@ -271,6 +271,7 @@ async def on_raw_reaction_add(
     role = ""
     badBool = False
     inviterBool = False
+    global testing
 
     print("Reaction added")
     if not payload.guild_id:
@@ -338,8 +339,7 @@ Have fun!""")
         #DanisDGK Again, just insert epicMember[0] as the name and epicMember[1] as the role here.
         messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
 
-        if member.nick is not None:
-
+        if member.nick is not None and testing and "test" not in member.name.lower():
             if "*" in member.nick:
                 await member.edit(nick=os.environ['emojiIDMember'] + " " + member.name.replace(" ", ""))
             else:
@@ -348,7 +348,14 @@ Have fun!""")
 
                 'recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
 
-        else:
+        elif not testing:
+            if "*" in member.nick:
+                await member.edit(nick=os.environ['emojiIDMember'] + " " + member.name.replace(" ", ""))
+            else:
+                await member.edit(nick=os.environ['emojiIDMember'] + " " + member.nick.replace(" ", ""))
+            mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
+
+                'recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
 
             errorMessage = await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention +
 """ please read through this whole message before doing anything. 
