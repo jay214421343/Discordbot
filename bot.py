@@ -28,6 +28,7 @@ async def on_ready():
 
 @client.command()
 async def testingmode(ctx):
+    global testing
     if testing:
         testing = False
         await ctx.send("Testing mode deactivated")
