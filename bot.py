@@ -18,24 +18,22 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-
+    global testing
+    testing = False
+    
     mentionMessages = []
     botActivity = discord.Activity(name=os.environ['activityName'], type=discord.ActivityType.watching)
     await client.change_presence(activity=botActivity)
     # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
 
 @client.command()
-async def ping(ctx):
-    '''
-    This text will be shown in the help command
-    '''
-
-    # Get the latency of the bot
-    latency = client.latency  # Included in the Discord.py library
-    # Send it to the user
-    await ctx.send(latency)
-
-
+async def testingmode(ctx):
+    if testing:
+        testing = False
+        await ctx.send("Testing mode deactivated")
+    else:
+        False
+        await ctx.send("Testing mode activated")
 async def is_staff(ctx):
     for permissionRole in ctx.author.roles:
         if permissionRole.id == int(os.environ['roleIDOfficer']) or permissionRole.id == int(
