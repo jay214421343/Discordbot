@@ -420,6 +420,8 @@ If you need help with any steps in this process feel free to contact any of the 
         await member.add_roles(role, reason='Invited to clan')  # Finally add the role to the member
         await member.add_roles(guild.get_role(int(os.environ['roleIDSeparator'])),
                                reason='Invited to clan')  # Finally add the role to the member
+        await member.add_roles(guild.get_role(int(os.environ['tennoSeparator'])),
+                               reason='Invited to clan')  # Finally add the role to the member
         await member.remove_roles(guild.get_role(int(os.environ['roleIDPending'])))
         print("Added role")
 
