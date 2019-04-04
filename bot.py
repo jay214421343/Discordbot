@@ -194,10 +194,12 @@ async def on_member_remove(member):
         if memberCheckRole.id == int(os.environ['roleIDMember']):
             await messageChannel.send(
                 os.environ['adminPing'] + """**
-A member has left. **
+A member has left. **""" + """
+Warframe IGN: """ + nickOrName(member) + """
 """ + str(member) + " (" + str(member.id) + ") " + """
 They had the roles: """ + (', '.join(nameRole.name for nameRole in member.roles[1:-1])) + ' and ' + member.roles[
-                    -1].name + ".")
+                    -1].name + """.
+                    """ + "They joined: " + "WIP")
 
             break
 
