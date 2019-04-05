@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+from datetime import datetime
 
 import discord
 import psycopg2
@@ -62,12 +63,22 @@ async def fixGhostWolfsName(ctx):
 
 @client.command()
 @commands.check(is_staff)
-async def inactive(ctx, *args):
+async def inactive(ctx, *inactiveMembers):
     for epicdabmember in ctx.guild.members:
         for role in epicdabmember.roles:
-            if role.id is not int(os.environ['roleIDLeader'):  
-                if epicdabmember.mention == arg for arg in args:
-                    epicdabmember.remove_roles(int(os.environ['roleIDOfficer']), )
+            if role.id is not int(os.environ['roleIDLeader']):
+                for inactiveMember in inactiveMembers:
+                    if epicdabmember.mention == inactiveMember:
+                        for dabRole in epicdabmember.roles:
+                            await epicdabmember.remove_roles(dabRole, reason="Inactivity")
+                        await epicdabmember.add_roles(ctx.guild.get_role(int(os.environ['roleIDFriend']),
+                                                                         ctx.guild.get_role(
+                                                                             int(os.environ['tennoSeparator'])),
+                                                                         ctx.guild.get_role(
+                                                                             int(os.environ['roleIDSeparator'])),
+                                                                         reason="Inactivity"))
+                        break
+
 
 @client.command()
 @commands.check(is_staff)
@@ -197,7 +208,10 @@ async def spreadsheetmanualupdate(ctx):
 @client.event
 async def on_member_remove(member):
     messageChannel = client.get_channel(int(os.environ['staffChannelID']))
-
+    memberAge = datetime.utcnow() - member.joined_at
+    days = memberAge.days
+    hours, remainder = divmod(memberAge.seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
     for memberCheckRole in member.roles:
         if memberCheckRole.id == int(os.environ['roleIDMember']):
             await messageChannel.send(
@@ -207,7 +221,8 @@ Warframe IGN: """ + nickOrName(member) + """
 """ + str(member) + " (" + str(member.id) + ") " + """
 They had the roles: """ + (', '.join(nameRole.name for nameRole in member.roles[1:-1])) + ' and ' + member.roles[
                     -1].name + """.
-                    """ + "They joined: " + "WIP")
+                    """ + "They joined " + str(days) + " days, " + str(hours) + " hours and " + str(
+                    minutes) + " minutes ago.")
 
             break
 
