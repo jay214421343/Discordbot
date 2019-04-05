@@ -81,7 +81,13 @@ async def inactive(ctx, *inactiveMembers):
                                                   ctx.guild.get_role(
                                                       int(os.environ['roleIDSeparator'])),
                                                   reason="Inactivity")
-
+                    await epicdabmember.edit(
+                                nick=os.environ['emojiIDFriend'] + " " + nickOrName(epicdabmember).replace(" ",
+                                                                                                        "").replace(
+                                    os.environ['emojiIDStaff'],
+                                    "")).replace(
+                                    os.environ['emojiIDMember'],
+                                    ""))
 
 @client.command()
 @commands.check(is_staff)
