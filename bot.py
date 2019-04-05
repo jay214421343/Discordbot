@@ -70,7 +70,7 @@ async def inactive(ctx, *inactiveMembers):
                 for inactiveMember in inactiveMembers:
                     if epicdabmember.mention == inactiveMember:
                         for dabRole in epicdabmember.roles:
-                            if dabRole is not ctx.guild.get_default_role():
+                            if dabRole is not ctx.guild.default_role:
                                 await epicdabmember.remove_roles(dabRole, reason="Inactivity")
                         await epicdabmember.add_roles(ctx.guild.get_role(int(os.environ['roleIDFriend']),
                                                                          ctx.guild.get_role(
