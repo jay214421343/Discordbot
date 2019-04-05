@@ -221,7 +221,7 @@ Warframe IGN: """ + nickOrName(member) + """
 """ + str(member) + " (" + str(member.id) + ") " + """
 They had the roles: """ + (', '.join(nameRole.name for nameRole in member.roles[1:-1])) + ' and ' + member.roles[
                     -1].name + """.
-                    """ + "They joined " + str(days) + " days, " + str(hours) + " hours and " + str(
+""" + "They joined " + str(days) + " days, " + str(hours) + " hours and " + str(
                     minutes) + " minutes ago.")
 
             break
