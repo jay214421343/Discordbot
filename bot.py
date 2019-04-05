@@ -85,7 +85,7 @@ async def inactive(ctx, *inactiveMembers):
                                 nick=os.environ['emojiIDFriend'] + " " + nickOrName(epicdabmember).replace(" ",
                                                                                                         "").replace(
                                     os.environ['emojiIDStaff'],
-                                    "")).replace(
+                                    "").replace(
                                     os.environ['emojiIDMember'],
                                     ""))
 
