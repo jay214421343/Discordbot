@@ -64,20 +64,23 @@ async def fixGhostWolfsName(ctx):
 @client.command()
 @commands.check(is_staff)
 async def inactive(ctx, *inactiveMembers):
+    bigOOF = False
     for epicdabmember in ctx.guild.members:
         for role in epicdabmember.roles:
             if role.id is not int(os.environ['roleIDLeader']):
-                for inactiveMember in inactiveMembers:
-                    if epicdabmember.mention == inactiveMember:
-                        for dabRole in epicdabmember.roles:
-                            if dabRole is not ctx.guild.default_role:
-                                await epicdabmember.remove_roles(dabRole, reason="Inactivity")
-                        await epicdabmember.add_roles(ctx.guild.get_role(int(os.environ['roleIDFriend'])),
-                                                      ctx.guild.get_role(
-                                                                             int(os.environ['tennoSeparator'])),
-                                                      ctx.guild.get_role(
-                                                                             int(os.environ['roleIDSeparator'])),
-                                                      reason="Inactivity")
+                bigOOF = True
+        if bigOOF:
+            for inactiveMember in inactiveMembers:
+                if epicdabmember.mention == inactiveMember:
+                    for dabRole in epicdabmember.roles:
+                        if dabRole is not ctx.guild.default_role:
+                            await epicdabmember.remove_roles(dabRole, reason="Inactivity")
+                    await epicdabmember.add_roles(ctx.guild.get_role(int(os.environ['roleIDFriend'])),
+                                                  ctx.guild.get_role(
+                                                      int(os.environ['tennoSeparator'])),
+                                                  ctx.guild.get_role(
+                                                      int(os.environ['roleIDSeparator'])),
+                                                  reason="Inactivity")
 
 
 @client.command()
