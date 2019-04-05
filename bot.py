@@ -60,6 +60,14 @@ async def fixGhostWolfsName(ctx):
     GhostWolf = ctx.guild.get_member(146356716894814209)
     await GhostWolf.edit(nick="👑 GhostWolf")
 
+@client.command()
+@commands.check(is_staff)
+async def inactive(ctx, *args):
+    for epicdabmember in ctx.guild.members:
+        for role in epicdabmember.roles:
+            if role.id is not int(os.environ['roleIDLeader'):  
+                if epicdabmember.mention == arg for arg in args:
+                    epicdabmember.remove_roles(int(os.environ['roleIDOfficer']), )
 
 @client.command()
 @commands.check(is_staff)
