@@ -78,7 +78,6 @@ async def inactive(ctx, *inactiveMembers):
                                                       ctx.guild.get_role(
                                                                              int(os.environ['roleIDSeparator'])),
                                                       reason="Inactivity")
-                        break
 
 
 @client.command()
