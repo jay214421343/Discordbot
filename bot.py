@@ -21,8 +21,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    
-    mentionMessages = []
+
     botActivity = discord.Activity(name=os.environ['activityName'], type=discord.ActivityType.watching)
     await client.change_presence(activity=botActivity)
     # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
@@ -241,12 +240,6 @@ They had the roles: """ + (', '.join(nameRole.name for nameRole in member.roles[
 async def on_member_update(before, after):
     isStaff = False
     messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
-
-    async for entry in after.guild.audit_logs(limit=1, action=discord.AuditLogAction.member_update):
-        if entry.target.id == before.id:
-            if entry.user.id == client.user.id:
-                print("BIG OOF")
-                return
 
     if len(before.roles) < len(after.roles):
         new_role = next(role for role in after.roles if role not in before.roles)
