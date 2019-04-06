@@ -245,6 +245,7 @@ async def on_member_update(before, after):
     async for entry in after.guild.audit_logs(limit=1, action=discord.AuditLogAction.member_update):
         if entry.target.id == before.id:
             if entry.user.id == client.user.id:
+                print("BIG OOF")
                 return
 
     if len(before.roles) < len(after.roles):
