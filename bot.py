@@ -282,6 +282,13 @@ async def on_member_update(before, after):
             for role in after.roles:
                 if role.id == int(os.environ['roleIDFriend']):
                     #DanisDGK Here, if possible, search for the member in the spreadsheet with the name returned by nickOrName(after) and change their rank to "Member"
+
+                    await after.remove_roles(role)
+                    await after.edit(
+                        nick=os.environ['emojiIDMember'] + " " + nickOrName(after).replace(" ", "").replace(
+                            os.environ['emojiIDFriend'],
+                            ""))
+
                     mentionMessageDab = await messageChannel.send(
                         os.environ['inviterPingMessage'] + " and " + os.environ[
 
@@ -300,12 +307,6 @@ async def on_member_update(before, after):
                     finally:
                         if conn is not None:
                             conn.close()
-
-                    await after.remove_roles(role)
-                    await after.edit(
-                        nick=os.environ['emojiIDMember'] + " " + nickOrName(after).replace(" ", "").replace(
-                            os.environ['emojiIDFriend'],
-                            ""))
                     return
 
         if new_role.id == int(os.environ['roleIDFriend']):
