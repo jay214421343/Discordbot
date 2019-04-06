@@ -87,6 +87,8 @@ async def inactive(ctx, *inactiveMembers):
                                     os.environ['emojiIDStaff'],
                                     "").replace(
                                     os.environ['emojiIDMember'],
+                                    "").replace(
+                                    os.environ['emojiIDMember'],
                                     ""))
 
 @client.command()
@@ -238,6 +240,7 @@ They had the roles: """ + (', '.join(nameRole.name for nameRole in member.roles[
 @client.event  # This event runs whenever a user updates: status, game playing, avatar, nickname or role
 async def on_member_update(before, after):
     isStaff = False
+    messageChannel = client.get_channel(int(os.environ['inviterChannelID']))
 
     async for entry in after.guild.audit_logs(limit=1, action=discord.AuditLogAction.member_update):
         if entry.target.id == before.id:
@@ -278,6 +281,23 @@ async def on_member_update(before, after):
             for role in after.roles:
                 if role.id == int(os.environ['roleIDFriend']):
                     #DanisDGK Here, if possible, search for the member in the spreadsheet with the name returned by nickOrName(after) and change their rank to "Member"
+                    mentionMessageDab = await messageChannel.send(
+                        os.environ['inviterPingMessage'] + " and " + os.environ[
+
+                            'recruiterPingMessage'] + " please invite " + after.nick + " to the clan.")
+                    try:
+                        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+                        cur = conn.cursor()
+                        cur.execute("INSERT INTO mentionMessageTable VALUES (%s, %s, True);",
+                                    (str(mentionMessageDab.id), str(after.id)))
+                        conn.commit()
+                        cur.close()
+                    except (Exception, psycopg2.DatabaseError) as error:
+                        print(error)
+                    finally:
+                        if conn is not None:
+                            conn.close()
+
                     await after.remove_roles(role)
                     await after.edit(
                         nick=os.environ['emojiIDMember'] + " " + nickOrName(after).replace(" ", "").replace(
@@ -337,7 +357,11 @@ async def on_raw_reaction_add(
                 conn.commit()
                 welcomeChannel = client.get_channel(int(os.environ['welcomeChannelID']))
                 print("Message ID matches inviter ping message id, sending welcome message...")
-                await welcomeChannel.send("Welcome " + "<@" + mentionMessage[1] + ">" + "!" + """
+                returningStr = ""
+                if mentionMessage[2] == 1:
+                    returningStr = "back "
+
+                await welcomeChannel.send("Welcome " + returningStr + "<@" + mentionMessage[1] + ">" + "!" + """
 
 You're now invited to the in-game clan, please check your inbox in-game!
 
@@ -416,7 +440,7 @@ If you need help with any steps in this process feel free to contact any of the 
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
             cur = conn.cursor()
-            cur.execute("INSERT INTO mentionMessageTable VALUES (%s, %s);",
+            cur.execute("INSERT INTO mentionMessageTable VALUES (%s, %s, False);",
                         (str(mentionMessageDab.id), str(payload.user_id)))
             conn.commit()
             cur.close()
