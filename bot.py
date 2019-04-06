@@ -285,6 +285,8 @@ async def on_member_update(before, after):
                         os.environ['inviterPingMessage'] + " and " + os.environ[
 
                             'recruiterPingMessage'] + " please invite " + after.nick + " to the clan.")
+                    await mentionMessageDab.add_reaction(
+                        os.environ['emojiIDInviter'])
                     try:
                         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
                         cur = conn.cursor()
@@ -334,6 +336,9 @@ async def on_raw_reaction_add(
 
     guild = client.get_guild(payload.guild_id)  # You need the guild to get the member who reacted
     member = guild.get_member(payload.user_id)  # Now you have the key part, the member who should receive the role
+
+    if payload.user_id == client.user.id:
+        return
 
     if payload.message_id != int(os.environ['messageID']):
         print(os.environ['messageID'])
@@ -404,6 +409,8 @@ Have fun!""")
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
 
                 'recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
+            await mentionMessageDab.add_reaction(
+                os.environ['emojiIDInviter'])
         elif member.nick is not None and testing and "test" in member.name.lower():
             if "*" in member.nick:
                 await member.edit(nick=os.environ['emojiIDMember'] + " " + member.name.replace(" ", ""))
@@ -418,6 +425,8 @@ Have fun!""")
             mentionMessageDab = await messageChannel.send(os.environ['inviterPingMessage'] + " and " + os.environ[
 
                 'recruiterPingMessage'] + " please invite " + member.nick + " to the clan.")
+            await mentionMessageDab.add_reaction(
+                os.environ['emojiIDInviter'])
         elif member.nick is None:
             errorMessage = await guild.get_channel(int(os.environ['guestChannelID'])).send(member.mention +
 """ please read through this whole message before doing anything. 
