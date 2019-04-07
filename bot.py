@@ -27,7 +27,7 @@ async def on_ready():
     # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
     print(next_weekday(datetime.datetime.utcnow(), 1))
     # client.loop.create_task(run_at(next_weekday(datetime.datetime.utcnow(), 1), addColumn()))
-    client.loop.create_task(run_at(datetime.datetime(2019, 4, 7, 12, 48), addColumn()))
+    client.loop.create_task(run_at(datetime.datetime(2019, 4, 7, 12, 52), addColumn()))
 
 
 async def wait_for(dt):
@@ -58,7 +58,7 @@ def next_weekday(d, weekday):
 
 async def addColumn():
     while True:
-        messageChannel = await client.get_channel(int(os.environ['staffChannelID']))
+        messageChannel = client.get_channel(int(os.environ['staffChannelID']))
         await messageChannel.send(os.environ['adminPing'] + "Time for the weekly member check Gears!")
         # DanisDGK add a new column to the spreadsheet here. You can use datetime.date.utcnow() for the date if you need that in the top column.
         await wait_for(next_weekday(datetime.datetime.utcnow(), 1))
