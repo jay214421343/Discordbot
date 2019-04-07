@@ -25,6 +25,7 @@ async def on_ready():
     botActivity = discord.Activity(name=os.environ['activityName'], type=discord.ActivityType.watching)
     await client.change_presence(activity=botActivity)
     # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
+    print(next_weekday(datetime.datetime.utcnow(), 6))
     client.loop.create_task(run_at(next_weekday(datetime.datetime.utcnow(), 6), addColumn()))
 
 
