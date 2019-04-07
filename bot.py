@@ -58,6 +58,7 @@ async def addColumn():
     while True:
         messageChannel = client.get_channel(int(os.environ['staffChannelID']))
         messageChannel.send(os.environ['adminPing'] + "Time for the weekly member check Gears!")
+        # DanisDGK add a new column to the spreadsheet here. You can use datetime.date.utcnow() for the date if you need that in the top column.
         await wait_for(next_weekday(datetime.datetime.utcnow(), 6))
 
 
