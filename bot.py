@@ -46,7 +46,7 @@ async def run_at(dt, coro):
     return await coro
 
 
-async def next_weekday(d, weekday):
+def next_weekday(d, weekday):
     days_ahead = weekday - d.date.weekday()
     if days_ahead <= 0:  # Target day already happened this week
         days_ahead += 7
