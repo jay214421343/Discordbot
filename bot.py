@@ -216,6 +216,12 @@ async def spreadsheetmanualupdate(ctx):
 
 
 @client.event
+async def on_guild_channel_update(before, after):
+    if before.category is not after.category:
+        messageChannel = client.get_channel(int(os.environ['staffChannelID']))
+        await messageChannel.send("It work a veri nice 👌")
+
+@client.event
 async def on_member_remove(member):
     messageChannel = client.get_channel(int(os.environ['staffChannelID']))
     memberAge = datetime.utcnow() - member.joined_at
