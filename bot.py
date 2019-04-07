@@ -58,8 +58,8 @@ def next_weekday(d, weekday):
 
 async def addColumn():
     while True:
-        messageChannel = client.get_channel(int(os.environ['staffChannelID']))
-        messageChannel.send(os.environ['adminPing'] + "Time for the weekly member check Gears!")
+        messageChannel = await client.get_channel(int(os.environ['staffChannelID']))
+        await messageChannel.send(os.environ['adminPing'] + "Time for the weekly member check Gears!")
         # DanisDGK add a new column to the spreadsheet here. You can use datetime.date.utcnow() for the date if you need that in the top column.
         await wait_for(next_weekday(datetime.datetime.utcnow(), 1))
 
