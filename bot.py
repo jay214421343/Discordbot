@@ -27,7 +27,7 @@ async def on_ready():
     # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
     print(next_weekday(datetime.datetime.utcnow(), 1))
     # client.loop.create_task(run_at(next_weekday(datetime.datetime.utcnow(), 1), addColumn()))
-    client.loop.create_task(run_at(datetime.datetime(2019, 4, 7, 12, 45), addColumn()))
+    client.loop.create_task(run_at(datetime.datetime(2019, 4, 7, 12, 48), addColumn()))
 
 
 async def wait_for(dt):
