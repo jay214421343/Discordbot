@@ -1,7 +1,7 @@
 import asyncio
+import datetime
 import logging
 import os
-from datetime import datetime
 
 import discord
 import psycopg2
@@ -25,6 +25,41 @@ async def on_ready():
     botActivity = discord.Activity(name=os.environ['activityName'], type=discord.ActivityType.watching)
     await client.change_presence(activity=botActivity)
     # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
+    client.loop.create_task(run_at(next_weekday(datetime.datetime.utcnow(), 1), addColumn()))
+
+
+async def wait_for(dt):
+    # sleep until the specified datetime
+    while True:
+        now = datetime.now()
+        remaining = (dt - now).total_seconds()
+        if remaining < 86400:
+            break
+        # asyncio.sleep doesn't like long sleeps, so don't sleep more
+        # than a day at a time
+        await asyncio.sleep(86400)
+    await asyncio.sleep(remaining)
+
+
+async def run_at(dt, coro):
+    await wait_for(dt)
+    return await coro
+
+
+async def next_weekday(d, weekday):
+    days_ahead = weekday - d.date.weekday()
+    if days_ahead <= 0:  # Target day already happened this week
+        days_ahead += 7
+    return d.date + datetime.timedelta(days_ahead)
+
+
+async def addColumn():
+    while True:
+        await wait_for(next_weekday(datetime.datetime.utcnow(), 1))
+        messageChannel = client.get_channel(int(os.environ['staffChannelID']))
+        messageChannel.send(os.environ['adminPing'] + "Time for the weekly member check Gears!")
+
+
 
 @client.command()
 async def testingmode(ctx):
@@ -218,7 +253,7 @@ async def spreadsheetmanualupdate(ctx):
 @client.event
 async def on_member_remove(member):
     messageChannel = client.get_channel(int(os.environ['staffChannelID']))
-    memberAge = datetime.utcnow() - member.joined_at
+    memberAge = datetime.datetime.utcnow() - member.joined_at
     days = memberAge.days
     hours, remainder = divmod(memberAge.seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
@@ -438,7 +473,7 @@ If you need help with any steps in this process feel free to contact any of the 
             reactionChannel = client.get_channel(payload.channel_id)
             reactionMessage = await reactionChannel.get_message(payload.message_id)
             await reactionMessage.remove_reaction(payload.emoji, member)
-            client.deleteErrorMessage_task = client.loop.create_task(deleteErrorMessage(errorMessage))
+            client.loop.create_task(deleteErrorMessage(errorMessage))
             return
 
         try:
@@ -486,6 +521,5 @@ If you need help with any steps in this process feel free to contact any of the 
                                reason='Invited to clan')  # Finally add the role to the member
         await member.remove_roles(guild.get_role(int(os.environ['roleIDPending'])))
         print("Added role")
-
 
 client.run(os.environ['discordToken'])
