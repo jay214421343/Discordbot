@@ -42,15 +42,16 @@ async def wait_for(dt):
 
 
 async def run_at(dt, coro):
+    await client.wait_until_ready()
     await wait_for(dt)
     return await coro
 
 
 def next_weekday(d, weekday):
-    days_ahead = weekday - d.date().weekday()
+    days_ahead = weekday - d.weekday()
     if days_ahead <= 0:  # Target day already happened this week
         days_ahead += 7
-    return d.date() + datetime.timedelta(days_ahead)
+    return d + datetime.timedelta(days_ahead)
 
 
 async def addColumn():
