@@ -47,10 +47,10 @@ async def run_at(dt, coro):
 
 
 def next_weekday(d, weekday):
-    days_ahead = weekday - d.weekday()
+    days_ahead = weekday - d.date().weekday()
     if days_ahead <= 0:  # Target day already happened this week
         days_ahead += 7
-    return d.date + datetime.timedelta(days_ahead)
+    return d.date() + datetime.timedelta(days_ahead)
 
 
 async def addColumn():
