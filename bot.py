@@ -34,7 +34,7 @@ async def wait_for(dt):
     # sleep until the specified datetime
     while True:
         now = datetime.datetime.utcnow()
-        remaining = (dt - now).total_seconds()
+        remaining = (dt.replace(hour=12, minute=0) - now).total_seconds()
         if remaining < 86400:
             break
         # asyncio.sleep doesn't like long sleeps, so don't sleep more
@@ -59,7 +59,7 @@ def next_weekday(d, weekday):
 async def addColumn():
     while True:
         messageChannel = client.get_channel(int(os.environ['staffChannelID']))
-        await messageChannel.send(os.environ['adminPing'] + "Time for the weekly member check Gears!")
+        await messageChannel.send(os.environ['adminPing'] + " Time for the weekly member check Gears!")
         # DanisDGK add a new column to the spreadsheet here. You can use datetime.date.utcnow() for the date if you need that in the top column.
         await wait_for(next_weekday(datetime.datetime.utcnow(), 1))
 
