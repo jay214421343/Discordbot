@@ -25,7 +25,7 @@ async def on_ready():
     botActivity = discord.Activity(name=os.environ['activityName'], type=discord.ActivityType.watching)
     await client.change_presence(activity=botActivity)
     # await client.user.edit(username="Cephalon Lobby") #This can be used to change the bot username
-    client.loop.create_task(run_at(next_weekday(datetime.datetime.utcnow(), 1), addColumn()))
+    client.loop.create_task(run_at(next_weekday(datetime.datetime.utcnow(), 6), addColumn()))
 
 
 async def wait_for(dt):
@@ -56,9 +56,9 @@ def next_weekday(d, weekday):
 
 async def addColumn():
     while True:
-        await wait_for(next_weekday(datetime.datetime.utcnow(), 1))
         messageChannel = client.get_channel(int(os.environ['staffChannelID']))
         messageChannel.send(os.environ['adminPing'] + "Time for the weekly member check Gears!")
+        await wait_for(next_weekday(datetime.datetime.utcnow(), 6))
 
 
 
