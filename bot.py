@@ -31,7 +31,7 @@ async def on_ready():
 async def wait_for(dt):
     # sleep until the specified datetime
     while True:
-        now = datetime.now()
+        now = datetime.datetime.utcnow()
         remaining = (dt - now).total_seconds()
         if remaining < 86400:
             break
