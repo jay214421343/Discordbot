@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 
 testing = False
 
-client = commands.Bot(command_prefix="?")
+client = commands.Bot(command_prefix="!")
 
 @client.event
 async def on_ready():
@@ -533,4 +533,4 @@ If you need help with any steps in this process feel free to contact any of the 
         await member.remove_roles(guild.get_role(int(os.environ['roleIDPending'])))
         print("Added role")
 
-client.run(os.environ['discordToken'])
+client.run(os.environ['NTc3NTI5NTczOTgyNjAxMjE4.XOK4AQ.CyokMlqGBLfanIJobJzTZJbzEqw'])
